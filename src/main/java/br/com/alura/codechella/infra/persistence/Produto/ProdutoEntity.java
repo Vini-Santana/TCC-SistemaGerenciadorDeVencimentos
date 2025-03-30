@@ -1,21 +1,43 @@
-package br.com.alura.codechella.domain.entities.Produto;
+package br.com.alura.codechella.infra.persistence.Produto;
+
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
 
-public class Produto {
+@Entity
+@Table(name = "produto")
+public class ProdutoEntity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String nomeProduto;
+
     private String codigo;
+
     private Integer quantidade;
+
     private LocalDate validade;
+
     private String observacoes;
 
-    public Produto(String nomeProduto, String codigo, Integer quantidade, LocalDate validade, String observacoes) {
+    public ProdutoEntity() {}
+
+    public ProdutoEntity(String nomeProduto, String codigo, Integer quantidade, LocalDate validade, String observacoes) {
         this.nomeProduto = nomeProduto;
         this.codigo = codigo;
         this.quantidade = quantidade;
         this.validade = validade;
         this.observacoes = observacoes;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getNomeProduto() {

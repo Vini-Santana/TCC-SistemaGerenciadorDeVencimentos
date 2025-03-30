@@ -1,4 +1,4 @@
-package br.com.alura.codechella.application.usecases;
+package br.com.alura.codechella.application.usecases.Produto;
 
 import br.com.alura.codechella.application.gateways.RepositorioDeProduto;
 import br.com.alura.codechella.domain.entities.Produto.Produto;
@@ -14,6 +14,8 @@ public class ListarProduto {
     }
 
     public List<Produto> listarProdutos(){
+
         return repositorioDeProduto.listarTodosProduto();
+
     }
 }

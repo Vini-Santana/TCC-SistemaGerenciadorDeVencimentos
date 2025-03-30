@@ -1,10 +1,11 @@
 package br.com.alura.codechella.config;
 
 import br.com.alura.codechella.application.gateways.RepositorioDeProduto;
-import br.com.alura.codechella.application.usecases.CriarProduto;
-import br.com.alura.codechella.infra.gateways.ProdutoEntityMapper;
-import br.com.alura.codechella.infra.gateways.RepositorioDeProdutoJpa;
-import br.com.alura.codechella.infra.persistence.ProdutoRepository;
+import br.com.alura.codechella.application.usecases.Produto.CriarProduto;
+import br.com.alura.codechella.application.usecases.Produto.ListarProduto;
+import br.com.alura.codechella.infra.gateways.Produto.ProdutoEntityMapper;
+import br.com.alura.codechella.infra.gateways.Produto.RepositorioDeProdutoJpa;
+import br.com.alura.codechella.infra.persistence.Produto.ProdutoRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -24,5 +25,10 @@ public class ProdutoConfig {
     @Bean
     ProdutoEntityMapper retornaMapper(){
         return new ProdutoEntityMapper();
+    }
+
+    @Bean
+    ListarProduto listarProduto(RepositorioDeProduto repositorioDeProduto){
+        return new ListarProduto(repositorioDeProduto);
     }
 }
