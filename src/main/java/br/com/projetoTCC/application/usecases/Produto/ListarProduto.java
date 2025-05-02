@@ -14,7 +14,7 @@ public class ListarProduto {
         this.repositorioDeProduto = repositorioDeProduto;
     }
 
-    public List<Produto> listarTodosProdutos(){
+    public List<Produto> listarTodosProduto(){
         return repositorioDeProduto.listarTodosProduto();
     }
 

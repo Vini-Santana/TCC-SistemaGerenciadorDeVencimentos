@@ -37,7 +37,6 @@ public class RepositorioDeProdutoJpa implements RepositorioDeProduto {
 
     @Override
     public List<Produto> listarTodosProduto() {
-
         return repository.findAll().stream()
                 .map(mapper::toDomain) //para cada usuário encontrado, faça algo (toDomain)
                 .collect(Collectors.toList());
