@@ -33,4 +33,8 @@ public class ListarProduto {
     public List<Produto> listarProdutoPorValidade(LocalDate validade){
         return repositorioDeProduto.listarProdutoPorValidade(validade);
     }
+
+    public Produto listarProdutoPorId(Long id){
+        return repositorioDeProduto.listarProdutoPorId(id);
+    }
 }

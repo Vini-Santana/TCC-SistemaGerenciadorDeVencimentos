@@ -13,7 +13,8 @@ public interface RepositorioDeProduto {
     List<Produto> listarProdutoPorCodigo(String codigo);
     List<Produto> listarProdutoPorQuantidade(Integer quantidade);
     List<Produto> listarProdutoPorValidade(LocalDate validade);
-//    Produto deletarProduto(Produto produto);
-//    Produto alterarProduto(Produto produto);
+    Produto listarProdutoPorId(Long Id);
+    Produto deletarProduto(Long id, Produto produto);
+    Produto alterarProduto(Long id, Produto produto);
 
 }

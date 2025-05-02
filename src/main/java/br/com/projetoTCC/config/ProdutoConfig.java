@@ -1,7 +1,9 @@
 package br.com.projetoTCC.config;
 
 import br.com.projetoTCC.application.gateways.RepositorioDeProduto;
+import br.com.projetoTCC.application.usecases.Produto.AlterarProduto;
 import br.com.projetoTCC.application.usecases.Produto.CriarProduto;
+import br.com.projetoTCC.application.usecases.Produto.DeletarProduto;
 import br.com.projetoTCC.application.usecases.Produto.ListarProduto;
 import br.com.projetoTCC.infra.gateways.Produto.ProdutoEntityMapper;
 import br.com.projetoTCC.infra.gateways.Produto.RepositorioDeProdutoJpa;
@@ -30,5 +32,15 @@ public class ProdutoConfig {
     @Bean
     ListarProduto listarProduto(RepositorioDeProduto repositorioDeProduto){
         return new ListarProduto(repositorioDeProduto);
+    }
+
+    @Bean
+    AlterarProduto alterarProduto(RepositorioDeProduto repositorioDeProduto){
+        return new AlterarProduto(repositorioDeProduto);
+    }
+
+    @Bean
+    DeletarProduto deletarProduto(RepositorioDeProduto repositorioDeProduto){
+        return new DeletarProduto(repositorioDeProduto);
     }
 }

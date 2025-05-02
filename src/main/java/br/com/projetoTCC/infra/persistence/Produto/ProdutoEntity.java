@@ -24,6 +24,15 @@ public class ProdutoEntity {
 
     public ProdutoEntity() {}
 
+    public ProdutoEntity(Long id, String nomeProduto, String codigo, Integer quantidade, LocalDate validade, String observacoes) {
+        this.id = id;
+        this.nomeProduto = nomeProduto;
+        this.codigo = codigo;
+        this.quantidade = quantidade;
+        this.validade = validade;
+        this.observacoes = observacoes;
+    }
+
     public ProdutoEntity(String nomeProduto, String codigo, Integer quantidade, LocalDate validade, String observacoes) {
         this.nomeProduto = nomeProduto;
         this.codigo = codigo;

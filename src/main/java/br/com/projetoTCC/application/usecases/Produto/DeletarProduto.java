@@ -3,13 +3,13 @@ package br.com.projetoTCC.application.usecases.Produto;
 import br.com.projetoTCC.application.gateways.RepositorioDeProduto;
 import br.com.projetoTCC.domain.entities.Produto.Produto;
 
-public class AlterarProduto {
+public class DeletarProduto {
 
     private final RepositorioDeProduto repositorioDeProduto;
 
-    public AlterarProduto(RepositorioDeProduto repositorioDeProduto) {
+    public DeletarProduto(RepositorioDeProduto repositorioDeProduto) {
         this.repositorioDeProduto = repositorioDeProduto;
     }
 
-    public Produto alteraProduto(Long idProduto, Produto produto){return repositorioDeProduto.alterarProduto(idProduto, produto);}
+    public Produto deletarProduto(Long id, Produto produto){return repositorioDeProduto.deletarProduto(id, produto);}
 }

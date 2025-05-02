@@ -1,5 +1,6 @@
 package br.com.projetoTCC.infra.controller.Produto;
 
+import br.com.projetoTCC.domain.entities.Produto.Produto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
