@@ -19,6 +19,12 @@ public class BaseDeDadosProdutoEntity {
         this.codigo = codigo;
     }
 
+    public BaseDeDadosProdutoEntity(Long id, String nomeProduto, String codigo) {
+        this.id = id;
+        this.nomeProduto = nomeProduto;
+        this.codigo = codigo;
+    }
+
     public Long getId() {
         return id;
     }

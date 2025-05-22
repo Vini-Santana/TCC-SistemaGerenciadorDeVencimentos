@@ -2,8 +2,12 @@ package br.com.projetoTCC.infra.gateways.BaseDeDadosProduto;
 
 import br.com.projetoTCC.application.gateways.RepositorioDeBaseDeDadosProduto;
 import br.com.projetoTCC.domain.entities.BaseDeDadosProduto.BaseDeDadosProduto;
+import br.com.projetoTCC.domain.entities.Produto.Produto;
+import br.com.projetoTCC.domain.exceptions.BaseDeDadosProdutoNotFoundException;
+import br.com.projetoTCC.domain.exceptions.ProdutoNotFoundException;
 import br.com.projetoTCC.infra.persistence.BaseDeDadosProduto.BaseDeDadosProdutoEntity;
 import br.com.projetoTCC.infra.persistence.BaseDeDadosProduto.BaseDeDadosProdutoRepository;
+import br.com.projetoTCC.infra.persistence.Produto.ProdutoEntity;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,16 +23,50 @@ public class RepositorioDeBaseDeDadosProdutoJPA implements RepositorioDeBaseDeDa
     }
 
     @Override
-    public BaseDeDadosProduto criarBaseDeDadosProduto(BaseDeDadosProduto BaseDeDadosProduto) {
-        BaseDeDadosProdutoEntity entity = mapper.toEntity(BaseDeDadosProduto);
+    public BaseDeDadosProduto criarBaseDeDadosProduto(BaseDeDadosProduto baseDeDadosProduto) {
+        BaseDeDadosProdutoEntity entity = mapper.toEntity(baseDeDadosProduto);
         repository.save(entity);
         return mapper.toDomain(entity);
     }
 
     @Override
-    public List<BaseDeDadosProduto> listarBaseDeDadosProduto() {
+    public BaseDeDadosProduto deletarBaseDeDadosProduto(Long id, BaseDeDadosProduto baseDeDadosProduto) {
+        repository.deleteById(id);
+        return baseDeDadosProduto;
+    }
+
+    @Override
+    public BaseDeDadosProduto alterarBaseDeDadosProduto(Long id, BaseDeDadosProduto produto) {
+        BaseDeDadosProdutoEntity entity = new BaseDeDadosProdutoEntity(id, produto.getNomeProduto(), produto.getCodigo());
+        repository.save(entity);
+        return mapper.toDomain(entity);
+    }
+
+    @Override
+    public List<BaseDeDadosProduto> listarTodosBaseDeDadosProduto() {
         return repository.findAll().stream()
-                .map(mapper::toDomain)
+                .map(mapper::toDomain) //para cada usuário encontrado, faça algo (toDomain)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<BaseDeDadosProduto> listarBaseDeDadosProdutoPorNome(String nomeProduto) {
+        return repository.findByNomeBaseDeDadosProdutoStartingWithIgnoreCase(nomeProduto).stream()
+                .map(mapper::toDomain) //para cada usuário encontrado, faça algo (toDomain)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<BaseDeDadosProduto> listarBaseDeDadosProdutoPorCodigo(String codigo) {
+        return repository.findByCodigoStartingWithIgnoreCase(codigo).stream()
+                .map(mapper::toDomain) //para cada usuário encontrado, faça algo (toDomain)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public BaseDeDadosProduto listarBaseDeDadosProdutoPorId(Long id) {
+        BaseDeDadosProdutoEntity entity = repository.findById(id)
+                .orElseThrow(() -> new BaseDeDadosProdutoNotFoundException(id));
+        return mapper.toDomain(entity);
     }
 }

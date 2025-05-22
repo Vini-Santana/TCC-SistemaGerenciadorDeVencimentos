@@ -1,6 +1,5 @@
 package br.com.projetoTCC.infra.persistence.Produto;
 
-import br.com.projetoTCC.domain.entities.Produto.Produto;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDate;

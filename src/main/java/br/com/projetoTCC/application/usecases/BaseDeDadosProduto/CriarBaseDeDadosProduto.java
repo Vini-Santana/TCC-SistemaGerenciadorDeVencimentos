@@ -12,7 +12,7 @@ public class CriarBaseDeDadosProduto {
     }
 
 
-    public BaseDeDadosProduto criarBaseDeDadosProduto(BaseDeDadosProduto produto){
-        return repositorioDeBaseDeDadosProduto.criarBaseDeDadosProduto(produto);
+    public BaseDeDadosProduto criarBaseDeDadosProduto(BaseDeDadosProduto baseDeDadosProduto){
+        return repositorioDeBaseDeDadosProduto.criarBaseDeDadosProduto(baseDeDadosProduto);
     }
 }

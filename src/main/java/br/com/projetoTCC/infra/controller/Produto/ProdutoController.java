@@ -38,7 +38,7 @@ public class ProdutoController {
 
     @PutMapping("/{id}")
     public ResponseEntity<ProdutoDTO> alterarProduto (@PathVariable Long id, @RequestBody ProdutoDTO dto){
-        Produto produtoSalvo  = alterarProduto.alteraProduto(id, new Produto(dto.nomeProduto(), dto.codigo(), dto.quantidade(), dto.validade(), dto.observacoes()));
+        Produto produtoSalvo = alterarProduto.alteraProduto(id, new Produto(dto.nomeProduto(), dto.codigo(), dto.quantidade(), dto.validade(), dto.observacoes()));
 
         return ResponseEntity.ok(new ProdutoDTO(produtoSalvo.getNomeProduto(), produtoSalvo.getCodigo(), produtoSalvo.getQuantidade(), produtoSalvo.getValidade(), produtoSalvo.getObservacoes()));
     }
@@ -58,20 +58,20 @@ public class ProdutoController {
     @GetMapping("/comFiltro")
     public ResponseEntity<List<ProdutoDTO>>  listarTodosProdutosPorNome(@RequestParam(required = false) String nomeProduto, @RequestParam(required = false) String codigo, @RequestParam(required = false) Integer quantidade, @RequestParam(required = false)LocalDate validade, @RequestParam(required = false)Long id){
         if (nomeProduto != null && !nomeProduto.isBlank()){
-            return ResponseEntity.ok(listarProduto.listarTodosProduto().stream()
+            return ResponseEntity.ok(listarProduto.listarProdutoPorNome(nomeProduto).stream()
                     .map(p -> new ProdutoDTO(p.getNomeProduto(), p.getCodigo(), p.getQuantidade(), p.getValidade(), p.getObservacoes())) //para cada usuário encontrado, faça algo (toDomain)
                     .collect(Collectors.toList()));
 
         }else if (codigo != null && !codigo.isBlank()){
-            return ResponseEntity.ok(listarProduto.listarTodosProduto().stream()
+            return ResponseEntity.ok(listarProduto.listarProdutoPorCodigo(codigo).stream()
                     .map(p -> new ProdutoDTO(p.getNomeProduto(), p.getCodigo(), p.getQuantidade(), p.getValidade(), p.getObservacoes())) //para cada usuário encontrado, faça algo (toDomain)
                     .collect(Collectors.toList()));
         }else if (quantidade != null){
-            return ResponseEntity.ok(listarProduto.listarTodosProduto().stream()
+            return ResponseEntity.ok(listarProduto.listarProdutoPorQuantidade(quantidade).stream()
                     .map(p -> new ProdutoDTO(p.getNomeProduto(), p.getCodigo(), p.getQuantidade(), p.getValidade(), p.getObservacoes())) //para cada usuário encontrado, faça algo (toDomain)
                     .collect(Collectors.toList()));
         }else if (validade != null){
-            return ResponseEntity.ok(listarProduto.listarTodosProduto().stream()
+            return ResponseEntity.ok(listarProduto.listarProdutoPorValidade(validade).stream()
                     .map(p -> new ProdutoDTO(p.getNomeProduto(), p.getCodigo(), p.getQuantidade(), p.getValidade(), p.getObservacoes())) //para cada usuário encontrado, faça algo (toDomain)
                     .collect(Collectors.toList()));
         }else if (id != null){

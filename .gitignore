@@ -1,6 +1,6 @@
 
-resources/
-
+TCCGerenciamentoDeEstoque/src/test/java/br/com/projetoTCC/
+TCCGerenciamentoDeEstoque/src/main/resources/
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar

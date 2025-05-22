@@ -41,6 +41,7 @@ public class RepositorioDeProdutoJpa implements RepositorioDeProduto {
                 .map(mapper::toDomain) //para cada usuário encontrado, faça algo (toDomain)
                 .collect(Collectors.toList());
     }
+
     @Override
     public List<Produto> listarProdutoPorNome(String nomeProduto) {
         return repository.findByNomeProdutoStartingWithIgnoreCase(nomeProduto).stream()
@@ -80,50 +81,4 @@ public class RepositorioDeProdutoJpa implements RepositorioDeProduto {
         repository.deleteById(id);
         return produto;
     }
-
-//    @Override
-//    public List<Produto> listarProdutoPorNome(String nome) {
-//        List<Produto> produtos = new ArrayList<>();
-//        String sql = "SELECT * FROM produtos WHERE nome LIKE ?";
-//
-//        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-//            stmt.setString(1, "%" + nome + "%"); // LIKE '%nome%'
-//            ResultSet rs = stmt.executeQuery();
-//
-//            while (rs.next()) {
-//                produtos.add(new Produto(
-////                        rs.getLong("id"),
-//                        rs.getString("nomeProduto"),
-//                        rs.getString("codigo"),
-//                        rs.getInt("quantidade"),
-//                        rs.getDate("validade").toLocalDate(),
-//                        rs.getString("observacoes")
-//
-//                ));
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-//        return produtos;
-//    }
-
-
-//    @Query("SELECT P.* FROM PRODUTO P WHERE P.NOMEPRODUTO LIKE :NOMEPRODUTO")
-//    @Override
-//    public List<Produto> listarProdutoPorNome(@Param("NOMEPRODUTO")@RequestParam String nome) {
-//        return repository.
-//                findAll().stream()
-//                .map(mapper::toDomain) //para cada usuário encontrado, faça algo (toDomain)
-//                .collect(Collectors.toList());;
-    }
-
-//    @Override
-//    public Produto deletarProduto(Produto produto) {
-//        return repository.delete(produto);
-//    }
-//
-//    @Override
-//    public Produto alterarProduto(Produto produto) {
-//        return repository.u;
-//        }
+}

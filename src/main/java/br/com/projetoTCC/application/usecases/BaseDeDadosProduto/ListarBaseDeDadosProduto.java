@@ -14,7 +14,19 @@ public class ListarBaseDeDadosProduto {
         this.repositorioDeBaseDeDadosProduto = repositorioDeBaseDeDadosProduto;
     }
 
-    public List<BaseDeDadosProduto> listarBaseDeDadosProduto(){
-        return repositorioDeBaseDeDadosProduto.listarBaseDeDadosProduto();
+    public List<BaseDeDadosProduto> listarTodosBaseDeDadosProduto(){
+        return repositorioDeBaseDeDadosProduto.listarTodosBaseDeDadosProduto();
+    }
+
+    public List<BaseDeDadosProduto> listarBaseDeDadosProdutoPorNome(String nomeProduto){
+        return repositorioDeBaseDeDadosProduto.listarBaseDeDadosProdutoPorNome(nomeProduto);
+    }
+
+    public List<BaseDeDadosProduto> listarBaseDeDadosProdutoPorCodigo(String codigo){
+        return repositorioDeBaseDeDadosProduto.listarBaseDeDadosProdutoPorCodigo(codigo);
+    }
+
+    public BaseDeDadosProduto listarBaseDeDadosProdutoPorId(Long id){
+        return repositorioDeBaseDeDadosProduto.listarBaseDeDadosProdutoPorId(id);
     }
 }
