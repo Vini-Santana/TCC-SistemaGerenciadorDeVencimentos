@@ -9,13 +9,17 @@ public class Produto {
     private Integer quantidade;
     private LocalDate validade;
     private String observacoes;
+    private String lote;
+    private LocalDate ultimaModificacao;
 
-    public Produto(String nomeProduto, String codigo, Integer quantidade, LocalDate validade, String observacoes) {
+    public Produto(String nomeProduto, String codigo, Integer quantidade, LocalDate validade, String observacoes, String lote, LocalDate ultimaModificacao) {
         this.nomeProduto = nomeProduto;
         this.codigo = codigo;
         this.quantidade = quantidade;
         this.validade = validade;
         this.observacoes = observacoes;
+        this.lote = lote;
+        this.ultimaModificacao = ultimaModificacao;
     }
 
     public String getNomeProduto() {
@@ -56,5 +60,21 @@ public class Produto {
 
     public void setObservacoes(String observacoes) {
         this.observacoes = observacoes;
+    }
+
+    public String getLote() {
+        return lote;
+    }
+
+    public void setLote(String lote) {
+        this.lote = lote;
+    }
+
+    public LocalDate getUltimaModificacao() {
+        return ultimaModificacao;
+    }
+
+    public void setUltimaModificacao(LocalDate ultimaModificacao) {
+        this.ultimaModificacao = ultimaModificacao;
     }
 }

@@ -11,8 +11,4 @@ public interface ProdutoRepository extends JpaRepository<ProdutoEntity, Long> {
     List<ProdutoEntity> findByCodigoStartingWithIgnoreCase(String codigo);
     List<ProdutoEntity> findByValidadeLessThanEqual(LocalDate validade);
     List<ProdutoEntity> findByQuantidadeLessThanEqual(Integer quantidade);
-
-//    ProdutoEntity findById(Long id);
-
-
 }

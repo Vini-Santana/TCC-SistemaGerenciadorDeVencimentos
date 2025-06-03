@@ -2,7 +2,7 @@ package br.com.projetoTCC.infra.gateways.Produto;
 
 import br.com.projetoTCC.application.gateways.RepositorioDeProduto;
 import br.com.projetoTCC.domain.entities.Produto.Produto;
-import br.com.projetoTCC.domain.exceptions.ProdutoNotFoundException;
+import br.com.projetoTCC.domain.exceptions.ProdutoNotFoundExceptionId;
 import br.com.projetoTCC.infra.persistence.Produto.ProdutoEntity;
 import br.com.projetoTCC.infra.persistence.Produto.ProdutoRepository;
 import java.time.LocalDate;
@@ -30,7 +30,7 @@ public class RepositorioDeProdutoJpa implements RepositorioDeProduto {
     @Override
     public Produto alterarProduto(Long id, Produto produto) {
 
-        ProdutoEntity entity = new ProdutoEntity(id, produto.getNomeProduto(), produto.getCodigo(), produto.getQuantidade(), produto.getValidade(), produto.getObservacoes());
+        ProdutoEntity entity = new ProdutoEntity(id, produto.getNomeProduto(), produto.getCodigo(), produto.getQuantidade(), produto.getValidade(), produto.getObservacoes(), produto.getLote(), produto.getUltimaModificacao());
         repository.save(entity);
         return mapper.toDomain(entity);
     }
@@ -72,7 +72,7 @@ public class RepositorioDeProdutoJpa implements RepositorioDeProduto {
 
     public Produto listarProdutoPorId(Long id) {
         ProdutoEntity entity = repository.findById(id)
-                .orElseThrow(() -> new ProdutoNotFoundException(id));
+                .orElseThrow(() -> new ProdutoNotFoundExceptionId(id));
         return mapper.toDomain(entity);
     }
 

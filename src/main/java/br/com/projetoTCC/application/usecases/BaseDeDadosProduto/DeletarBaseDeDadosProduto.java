@@ -9,7 +9,7 @@ public class DeletarBaseDeDadosProduto {
 
     private final RepositorioDeBaseDeDadosProduto repositorioDeBaseDeDadosProduto;
 
-    public DeletarBaseDeDadosProduto(RepositorioDeProduto repositorioDeProduto, RepositorioDeBaseDeDadosProduto repositorioDeBaseDeDadosProduto) {
+    public DeletarBaseDeDadosProduto(RepositorioDeBaseDeDadosProduto repositorioDeBaseDeDadosProduto) {
         this.repositorioDeBaseDeDadosProduto = repositorioDeBaseDeDadosProduto;
     }
 

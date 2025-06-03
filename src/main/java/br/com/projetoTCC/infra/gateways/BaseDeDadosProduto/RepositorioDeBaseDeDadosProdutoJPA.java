@@ -2,12 +2,9 @@ package br.com.projetoTCC.infra.gateways.BaseDeDadosProduto;
 
 import br.com.projetoTCC.application.gateways.RepositorioDeBaseDeDadosProduto;
 import br.com.projetoTCC.domain.entities.BaseDeDadosProduto.BaseDeDadosProduto;
-import br.com.projetoTCC.domain.entities.Produto.Produto;
-import br.com.projetoTCC.domain.exceptions.BaseDeDadosProdutoNotFoundException;
-import br.com.projetoTCC.domain.exceptions.ProdutoNotFoundException;
+import br.com.projetoTCC.domain.exceptions.BaseDeDadosProdutoNotFoundExceptionId;
 import br.com.projetoTCC.infra.persistence.BaseDeDadosProduto.BaseDeDadosProdutoEntity;
 import br.com.projetoTCC.infra.persistence.BaseDeDadosProduto.BaseDeDadosProdutoRepository;
-import br.com.projetoTCC.infra.persistence.Produto.ProdutoEntity;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -51,7 +48,7 @@ public class RepositorioDeBaseDeDadosProdutoJPA implements RepositorioDeBaseDeDa
 
     @Override
     public List<BaseDeDadosProduto> listarBaseDeDadosProdutoPorNome(String nomeProduto) {
-        return repository.findByNomeBaseDeDadosProdutoStartingWithIgnoreCase(nomeProduto).stream()
+        return repository.findBynomeProdutoStartingWithIgnoreCase(nomeProduto).stream()
                 .map(mapper::toDomain) //para cada usuário encontrado, faça algo (toDomain)
                 .collect(Collectors.toList());
     }
@@ -66,7 +63,7 @@ public class RepositorioDeBaseDeDadosProdutoJPA implements RepositorioDeBaseDeDa
     @Override
     public BaseDeDadosProduto listarBaseDeDadosProdutoPorId(Long id) {
         BaseDeDadosProdutoEntity entity = repository.findById(id)
-                .orElseThrow(() -> new BaseDeDadosProdutoNotFoundException(id));
+                .orElseThrow(() -> new BaseDeDadosProdutoNotFoundExceptionId(id));
         return mapper.toDomain(entity);
     }
 }

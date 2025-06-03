@@ -5,8 +5,6 @@ import br.com.projetoTCC.application.usecases.BaseDeDadosProduto.CriarBaseDeDado
 import br.com.projetoTCC.application.usecases.BaseDeDadosProduto.DeletarBaseDeDadosProduto;
 import br.com.projetoTCC.application.usecases.BaseDeDadosProduto.ListarBaseDeDadosProduto;
 import br.com.projetoTCC.domain.entities.BaseDeDadosProduto.BaseDeDadosProduto;
-import br.com.projetoTCC.domain.entities.Produto.Produto;
-import br.com.projetoTCC.infra.controller.Produto.ProdutoDTO;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,7 +33,7 @@ public class BaseDeDadosProdutoController {
     @PostMapping
     public ResponseEntity<BaseDeDadosProdutoDTO> cadastrarBaseDeDadosProduto(@RequestBody @Valid BaseDeDadosProdutoDTO dto){
         criarBaseDeDadosProduto.criarBaseDeDadosProduto(new BaseDeDadosProduto(dto.nomeProduto(), dto.codigo()));
-        return ResponseEntity.status(HttpStatus.CREATED).body(new BaseDeDadosProdutoDTO(dto.nomeProduto(), dto.codigo()));
+        return ResponseEntity.status(HttpStatus.OK).body(new BaseDeDadosProdutoDTO(dto.nomeProduto(), dto.codigo()));
     }
 
     @PutMapping("/{id}")
@@ -48,7 +46,7 @@ public class BaseDeDadosProdutoController {
     @DeleteMapping("/{id}")
     public ResponseEntity<BaseDeDadosProdutoDTO> deletarBaseDeDadosProduto(@PathVariable Long id, @RequestBody BaseDeDadosProdutoDTO dto){
         deletarBaseDeDadosProduto.deletarBaseDeDadosProduto(id, new BaseDeDadosProduto(dto.nomeProduto(), dto.codigo()));
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping
