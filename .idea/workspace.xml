@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="0036ada0-ec1c-4026-9d7d-815e01f0a6ed" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/TCC-SistemaGerenciadorDeVencimentos.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitattributes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/TCC.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/projetoTCC/TCCGerenciamentoDeEstoque.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/projetoTCC/application/gateways/RepositorioDeBaseDeDadosProduto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/projetoTCC/application/gateways/RepositorioDeProduto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/projetoTCC/application/usecases/BaseDeDadosProduto/AlterarBaseDeDadosProduto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/projetoTCC/application/usecases/BaseDeDadosProduto/CriarBaseDeDadosProduto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/projetoTCC/application/usecases/BaseDeDadosProduto/DeletarBaseDeDadosProduto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/projetoTCC/application/usecases/BaseDeDadosProduto/ListarBaseDeDadosProduto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/projetoTCC/application/usecases/Produto/AlterarProduto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/projetoTCC/application/usecases/Produto/CriarProduto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/projetoTCC/application/usecases/Produto/DeletarProduto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/projetoTCC/application/usecases/Produto/ListarProduto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/projetoTCC/config/BaseDeDadosProdutoConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/projetoTCC/config/ProdutoConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/projetoTCC/domain/entities/BaseDeDadosProduto/BaseDeDadosProduto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/projetoTCC/domain/entities/Produto/FabricaDeProduto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/projetoTCC/domain/entities/Produto/Produto.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/projetoTCC/domain/exceptions/BaseDeDadosProdutoNotFoundExceptionId.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/projetoTCC/domain/exceptions/ProdutoNotFoundExceptionId.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/projetoTCC/infra/controller/BaseDeDadosProduto/BaseDeDadosProdutoController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/projetoTCC/infra/controller/BaseDeDadosProduto/BaseDeDadosProdutoDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/projetoTCC/infra/controller/GlobalExceptionHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/projetoTCC/infra/controller/Produto/ProdutoController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/projetoTCC/infra/controller/Produto/ProdutoDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/projetoTCC/infra/gateways/BaseDeDadosProduto/BaseDeDadosProdutoEntityMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/projetoTCC/infra/gateways/BaseDeDadosProduto/RepositorioDeBaseDeDadosProdutoJPA.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/projetoTCC/infra/gateways/Produto/ProdutoEntityMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/projetoTCC/infra/gateways/Produto/RepositorioDeProdutoJpa.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/projetoTCC/infra/persistence/BaseDeDadosProduto/BaseDeDadosProdutoEntity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/projetoTCC/infra/persistence/BaseDeDadosProduto/BaseDeDadosProdutoRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/projetoTCC/infra/persistence/Produto/ProdutoEntity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/br/com/projetoTCC/infra/persistence/Produto/ProdutoRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/br/com/projetoTCC/TCCGerenciamentoDeEstoqueTests.java" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="2yroMxVkI7bsRtucV2Ai5DZsWCA" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.TCCGerenciamentoDeEstoque.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/vinis/OneDrive/Documentos/TCC Workspace/TCC-SistemaGerenciadorDeVencimentos",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.0"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\vinis\OneDrive\Documentos\TCC Workspace\TCC-SistemaGerenciadorDeVencimentos" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="0036ada0-ec1c-4026-9d7d-815e01f0a6ed" name="Changes" comment="" />
+      <created>1750602009240</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1750602009240</updated>
+    </task>
+    <servers />
+  </component>
+</project>
