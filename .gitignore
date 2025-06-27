@@ -8,6 +8,10 @@ target/
 /target/
 !.mvn/wrapper/maven-wrapper.jar
 
+# Arquivo de propriedades do Spring Boot
+backend/src/main/resources/application.properties
+
+
 ### STS ###
 .apt_generated
 .classpath
