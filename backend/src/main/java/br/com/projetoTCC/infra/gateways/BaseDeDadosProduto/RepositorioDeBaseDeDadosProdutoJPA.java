@@ -34,7 +34,7 @@ public class RepositorioDeBaseDeDadosProdutoJPA implements RepositorioDeBaseDeDa
 
     @Override
     public BaseDeDadosProduto alterarBaseDeDadosProduto(Long id, BaseDeDadosProduto produto) {
-        BaseDeDadosProdutoEntity entity = new BaseDeDadosProdutoEntity(id, produto.getNomeProduto(), produto.getCodigo());
+        BaseDeDadosProdutoEntity entity = new BaseDeDadosProdutoEntity(id, produto.getNomeProduto(), produto.getCodigo(), produto.getCodigoBarras());
         repository.save(entity);
         return mapper.toDomain(entity);
     }
