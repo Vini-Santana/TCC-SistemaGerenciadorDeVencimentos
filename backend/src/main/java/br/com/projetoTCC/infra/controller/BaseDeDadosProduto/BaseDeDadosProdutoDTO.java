@@ -6,5 +6,7 @@ public record BaseDeDadosProdutoDTO(
         @NotBlank(message = "O nomeProduto não pode ser vazio ou nulo")
         String nomeProduto,
         @NotBlank(message = "O codigo não pode ser vazio ou nulo")
-        String codigo) {
+        String codigo,
+        @NotBlank(message = "O codigo de Barras não pode ser vazio ou nulo")
+        String codigoBarras) {
 }

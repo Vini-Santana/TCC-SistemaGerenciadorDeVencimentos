@@ -32,27 +32,27 @@ public class BaseDeDadosProdutoController {
 
     @PostMapping
     public ResponseEntity<BaseDeDadosProdutoDTO> cadastrarBaseDeDadosProduto(@RequestBody @Valid BaseDeDadosProdutoDTO dto){
-        criarBaseDeDadosProduto.criarBaseDeDadosProduto(new BaseDeDadosProduto(dto.nomeProduto(), dto.codigo()));
-        return ResponseEntity.status(HttpStatus.OK).body(new BaseDeDadosProdutoDTO(dto.nomeProduto(), dto.codigo()));
+        criarBaseDeDadosProduto.criarBaseDeDadosProduto(new BaseDeDadosProduto(dto.nomeProduto(), dto.codigo(), dto.codigoBarras()));
+        return ResponseEntity.status(HttpStatus.OK).body(new BaseDeDadosProdutoDTO(dto.nomeProduto(), dto.codigo(), dto.codigoBarras()));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<BaseDeDadosProdutoDTO> alterarBaseDeDadosProduto (@PathVariable Long id, @RequestBody BaseDeDadosProdutoDTO dto){
-        BaseDeDadosProduto produtoSalvo = alterarBaseDeDadosProduto.alteraBaseDeDadosProduto(id, new BaseDeDadosProduto(dto.nomeProduto(), dto.codigo()));
+        BaseDeDadosProduto produtoSalvo = alterarBaseDeDadosProduto.alteraBaseDeDadosProduto(id, new BaseDeDadosProduto(dto.nomeProduto(), dto.codigo(), dto.codigoBarras()));
 
-        return ResponseEntity.ok(new BaseDeDadosProdutoDTO(produtoSalvo.getNomeProduto(), produtoSalvo.getCodigo()));
+        return ResponseEntity.ok(new BaseDeDadosProdutoDTO(produtoSalvo.getNomeProduto(), produtoSalvo.getCodigo(), produtoSalvo.getCodigoBarras()));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<BaseDeDadosProdutoDTO> deletarBaseDeDadosProduto(@PathVariable Long id, @RequestBody BaseDeDadosProdutoDTO dto){
-        deletarBaseDeDadosProduto.deletarBaseDeDadosProduto(id, new BaseDeDadosProduto(dto.nomeProduto(), dto.codigo()));
+        deletarBaseDeDadosProduto.deletarBaseDeDadosProduto(id, new BaseDeDadosProduto(dto.nomeProduto(), dto.codigo(), dto.codigoBarras()));
         return ResponseEntity.ok().build();
     }
 
     @GetMapping
     public ResponseEntity<List<BaseDeDadosProdutoDTO>> listarTodosBaseDeDadosProduto(){
         return ResponseEntity.ok(listarBaseDeDadosProduto.listarTodosBaseDeDadosProduto().stream()
-                .map(p -> new BaseDeDadosProdutoDTO(p.getNomeProduto(), p.getCodigo())) //para cada usuário encontrado, faça algo (toDomain)
+                .map(p -> new BaseDeDadosProdutoDTO(p.getNomeProduto(), p.getCodigo(), p.getCodigoBarras())) //para cada usuário encontrado, faça algo (toDomain)
                 .collect(Collectors.toList()));
     }
 }

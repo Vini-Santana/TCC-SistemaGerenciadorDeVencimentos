@@ -11,18 +11,21 @@ public class BaseDeDadosProdutoEntity {
     private Long id;
     private String nomeProduto;
     private String codigo;
+    private String codigoBarras;
 
     public BaseDeDadosProdutoEntity() {}
 
-    public BaseDeDadosProdutoEntity(String nomeProduto, String codigo) {
+    public BaseDeDadosProdutoEntity(String nomeProduto, String codigo, String codigoBarras) {
         this.nomeProduto = nomeProduto;
         this.codigo = codigo;
+        this.codigoBarras = codigoBarras;
     }
 
-    public BaseDeDadosProdutoEntity(Long id, String nomeProduto, String codigo) {
+    public BaseDeDadosProdutoEntity(Long id, String nomeProduto, String codigo, String codigoBarras) {
         this.id = id;
         this.nomeProduto = nomeProduto;
         this.codigo = codigo;
+        this.codigoBarras = codigoBarras;
     }
 
     public Long getId() {
@@ -47,5 +50,13 @@ public class BaseDeDadosProdutoEntity {
 
     public void setCodigo(String codigo) {
         this.codigo = codigo;
+    }
+
+    public String getCodigoBarras() {
+        return codigoBarras;
+    }
+
+    public void setCodigoBarras(String codigoBarras) {
+        this.codigoBarras = codigoBarras;
     }
 }

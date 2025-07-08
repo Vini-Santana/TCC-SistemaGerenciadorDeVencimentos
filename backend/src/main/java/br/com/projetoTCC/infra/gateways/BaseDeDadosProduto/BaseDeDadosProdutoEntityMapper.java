@@ -6,10 +6,10 @@ import br.com.projetoTCC.infra.persistence.BaseDeDadosProduto.BaseDeDadosProduto
 public class BaseDeDadosProdutoEntityMapper {
 
     public BaseDeDadosProduto toDomain(BaseDeDadosProdutoEntity entity){
-        return new BaseDeDadosProduto(entity.getNomeProduto(), entity.getCodigo());
+        return new BaseDeDadosProduto(entity.getNomeProduto(), entity.getCodigo(), entity.getCodigoBarras());
     }
 
     public BaseDeDadosProdutoEntity toEntity(BaseDeDadosProduto domain){
-        return new BaseDeDadosProdutoEntity(domain.getNomeProduto(), domain.getCodigo());
+        return new BaseDeDadosProdutoEntity(domain.getNomeProduto(), domain.getCodigo(), domain.getCodigoBarras());
     }
 }
