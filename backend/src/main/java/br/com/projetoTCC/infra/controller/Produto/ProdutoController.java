@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/produto")
+@RequestMapping("/produtos")
 public class ProdutoController {
     private final CriarProduto criarProduto;
     private final ListarProduto listarProduto;
@@ -57,7 +57,7 @@ public class ProdutoController {
                 .collect(Collectors.toList()));
     }
     @GetMapping("/comFiltro")
-    public ResponseEntity<List<ProdutoDTO>>  listarTodosProdutosPorNome(@RequestParam(required = false) String nomeProduto, @RequestParam(required = false) String codigo, @RequestParam(required = false) Integer quantidade, @RequestParam(required = false)LocalDate validade, @RequestParam(required = false)Long id){
+    public ResponseEntity<List<ProdutoDTO>> listarTodosProdutosComFiltro(@RequestParam(required = false) String nomeProduto, @RequestParam(required = false) String codigo, @RequestParam(required = false) Integer quantidade, @RequestParam(required = false)LocalDate validade, @RequestParam(required = false)Long id){
         if (nomeProduto != null && !nomeProduto.isBlank()){
             return ResponseEntity.ok(listarProduto.listarProdutoPorNome(nomeProduto).stream()
                     .map(p -> new ProdutoDTO(p.getNomeProduto(), p.getCodigo(), p.getQuantidade(), p.getValidade(), p.getObservacoes(), p.getUltimaModificacao(), p.getLote())) //para cada usuário encontrado, faça algo (toDomain)

@@ -1,0 +1,102 @@
+.formulario {
+  padding: 30px;
+  background-color: #fdfafa;
+  border: 1px solid #4b1e0e;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 800px;
+  margin: auto;
+  font-family: 'Inter', sans-serif;
+  color: #4b1e0e;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  position: relative;
+}
+
+.formulario h2 {
+  font-size: 22px;
+  margin-bottom: 24px;
+  font-weight: 600;
+  color: #4b1e0e;
+}
+
+.formulario form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.formulario label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+
+.formulario input,
+.formulario select,
+.formulario textarea {
+  padding: 10px;
+  border: 1px solid #4b1e0e;
+  border-radius: 4px;
+  width: 100%;
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+  color: #4b1e0e;
+}
+
+.formulario .linha-dupla {
+  display: flex;
+  gap: 20px;
+}
+
+.formulario .linha-dupla > div {
+  flex: 1;
+}
+
+.formulario button {
+  margin-top: 20px;
+}
+
+/* Botões personalizados */
+button[type="submit"],
+.botao-salvar {
+  background-color: #FE7416;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 18px;
+    padding: 32px;
+    border: none;
+    cursor: pointer;
+    color: #FFF;
+    margin: 16px 0;
+}
+
+button[type="submit"]:hover,
+.botao-salvar:hover {
+    background-color: #9F490F;
+    transition: background-color 0.3s ease;
+}
+
+.botao-cancelar {
+  background-color: #FFF;
+    border-radius: 10px;
+    border-color: #FE7416;
+    font-weight: 700;
+    font-size: 18px;
+    padding: 32px;
+    cursor: pointer;
+    color: #FE7416;
+    margin: 16px 0;
+}
+
+.botao-cancelar:hover {
+    background-color: #D6CFCF;
+    transition: background-color 0.3s ease;
+
+}
+
+/* Responsivo */
+@media (max-width: 600px) {
+  .formulario .linha-dupla {
+    flex-direction: column;
+  }
+}

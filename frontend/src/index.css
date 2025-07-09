@@ -1,10 +1,21 @@
 /* Estilo global da página */
-body {
+/* body {
   margin: 0;
   font-family: Arial, sans-serif;
   background-color: #f8f9fa;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 80vh;
+} */
+
+body{
+  margin: 0;
+  font-family: Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code{
+  font-family: 'Courier New', Courier, monospace;
 }

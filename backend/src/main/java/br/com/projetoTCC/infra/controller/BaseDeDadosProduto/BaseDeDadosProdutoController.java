@@ -5,6 +5,7 @@ import br.com.projetoTCC.application.usecases.BaseDeDadosProduto.CriarBaseDeDado
 import br.com.projetoTCC.application.usecases.BaseDeDadosProduto.DeletarBaseDeDadosProduto;
 import br.com.projetoTCC.application.usecases.BaseDeDadosProduto.ListarBaseDeDadosProduto;
 import br.com.projetoTCC.domain.entities.BaseDeDadosProduto.BaseDeDadosProduto;
+import br.com.projetoTCC.infra.controller.Produto.ProdutoDTO;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -54,5 +55,24 @@ public class BaseDeDadosProdutoController {
         return ResponseEntity.ok(listarBaseDeDadosProduto.listarTodosBaseDeDadosProduto().stream()
                 .map(p -> new BaseDeDadosProdutoDTO(p.getNomeProduto(), p.getCodigo())) //para cada usuário encontrado, faça algo (toDomain)
                 .collect(Collectors.toList()));
+    }
+
+    @GetMapping("/buscarPor")
+    public ResponseEntity<List<BaseDeDadosProdutoDTO>> listarBaseDeDadosProdutoPorFiltro(@RequestParam(required = false) String codigo, @RequestParam(required = false) String codigobarras) {
+        if (codigo != null && !codigo.isBlank()) {
+            return ResponseEntity.ok(listarBaseDeDadosProduto.listarBaseDeDadosProdutoPorCodigo(codigo).stream()
+                    .map(p -> new BaseDeDadosProdutoDTO(p.getNomeProduto(), p.getCodigo(), p.getCodigoBarras())) //para cada usuário encontrado, faça algo (toDomain)
+                    .collect(Collectors.toList()));
+
+        } else if (codigobarras != null && !codigobarras.isBlank()) {
+            return ResponseEntity.ok(listarBaseDeDadosProduto.listarBaseDeDadosProdutoPorCodigoBarras(codigobarras).stream()
+                    .map(p -> new BaseDeDadosProdutoDTO(p.getNomeProduto(), p.getCodigo(), p.getCodigoBarras())) //para cada usuário encontrado, faça algo (toDomain)
+                    .collect(Collectors.toList()));
+        }else{
+            return ResponseEntity.ok(listarBaseDeDadosProduto.listarTodosBaseDeDadosProduto().stream()
+                    .map(p -> new BaseDeDadosProdutoDTO(p.getNomeProduto(), p.getCodigo(), p.getCodigoBarras())) //para cada usuário encontrado, faça algo (toDomain)
+                    .collect(Collectors.toList()));
+        }
+
     }
 }
