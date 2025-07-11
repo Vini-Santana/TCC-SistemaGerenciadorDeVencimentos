@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/baseDeDadosProduto")
+@RequestMapping("/baseDeDadosProdutos")
 public class BaseDeDadosProdutoController {
 
     private final CriarBaseDeDadosProduto criarBaseDeDadosProduto;

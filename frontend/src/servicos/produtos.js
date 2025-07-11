@@ -12,12 +12,17 @@ async function cadastrarProduto(produto){
     await produtosAPI.post('', produto)
 }
 
-async function deletarProduto(id){
-    await produtosAPI.delete(`/${id}`)
+async function atualizarProduto(id, produtoAtualizado) {
+    await produtosAPI.put(`/${id}`, produtoAtualizado);
 }
 
-export{
-    listarTodosProdutos, 
-    cadastrarProduto, 
-    deletarProduto
+async function deletarProduto(id, produto) {
+    await produtosAPI.delete(`/${id}`, { data: produto });
 }
+
+export {
+    listarTodosProdutos,
+    cadastrarProduto,
+    atualizarProduto,
+    deletarProduto
+};
