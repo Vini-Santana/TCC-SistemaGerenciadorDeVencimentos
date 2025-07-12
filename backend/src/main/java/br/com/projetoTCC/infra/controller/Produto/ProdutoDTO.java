@@ -6,6 +6,8 @@ import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 public record ProdutoDTO(
+        Long id,
+
         @NotBlank(message = "O nome não pode ser vazio ou nulo")
         String nomeProduto,
 

@@ -56,23 +56,25 @@ git clone https://github.com/Vini-Santana/TCC.git
 
 ---
 
-## 🧪 Compilar o Projeto
+## 🧪 Compilar e subir o Backend
 
-Dentro da pasta `backend`, execute via PowerShell:
+No IntelliJ, acessar o arquivo TCCSistemaGerenciadorDeVencimentos, em:
 
 ```bash
-mvn clean install
+TCC\backend\src\main\java\br\com\vinicius\TCCSistemaGerenciadorDeVencimentos.java
 ```
+Clique no botão verde de execução (play) para compilar e subir o backend.
 
 ---
 
-## 🚀 Executar o Projeto
+## 🚀 Subir o Frontend
 
-Ainda na pasta `backend`, execute:
+No terminal dentro da pasta frontend, execute o seguinte comando:
 
 ```bash
-mvn spring-boot:run
+npm start
 ```
+O frontend será iniciado e você poderá acessá-lo em `http://localhost:3000`, e já está apontando para o backend em `http://localhost:8080`.
 
 ---
 

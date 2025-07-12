@@ -10,6 +10,6 @@ public class ProdutoEntityMapper {
     }
 
     public Produto toDomain(ProdutoEntity entity){
-        return new Produto(entity.getNomeProduto(), entity.getCodigo(), entity.getQuantidade(), entity.getValidade(), entity.getObservacoes(), entity.getLote(), entity.getUltimaModificacao() );
+        return new Produto(entity.getId(), entity.getNomeProduto(), entity.getCodigo(), entity.getQuantidade(), entity.getValidade(), entity.getObservacoes(), entity.getLote(), entity.getUltimaModificacao() );
     }
 }
