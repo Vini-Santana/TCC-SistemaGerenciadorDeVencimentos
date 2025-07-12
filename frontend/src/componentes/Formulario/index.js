@@ -4,8 +4,9 @@ import './Formulario.css';
 import { useState } from 'react';
 import { cadastrarProduto } from '../../servicos/produtos';
 
-const Formulario = ({ listaDeProdutos, aoProdutoCadastrado }) => {
+const Formulario = ({ listaDeProdutos, aoProdutoCadastrado, onClose }) => {
     const [dados, setDados] = useState({
+        id: '',
         nomeProduto: '',
         codigo: '',
         lote: '',
@@ -142,8 +143,8 @@ const Formulario = ({ listaDeProdutos, aoProdutoCadastrado }) => {
 
                 <div className="linha-dupla">
                     <button className='botao-salvar'>Salvar</button>
-                    <button className='botao-cancelar'>Cancelar</button>
                 </div>
+                    <button onClick={onClose} className='botao-cancelar'>Cancelar</button>
             </form>
         </section>
     );

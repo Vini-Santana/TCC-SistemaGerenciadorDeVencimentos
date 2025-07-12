@@ -4,10 +4,13 @@ import Formulario from './componentes/Formulario';
 import TabelaProdutos from './componentes/TabelaProdutos/index';
 import { listarTodosProdutos, atualizarProduto, deletarProduto } from './servicos/produtos';
 import { listarTodosBaseDeDadosProdutos } from './servicos/baseDeDadosProdutos';
+import { Button, useDisclosure } from '@heroui/react';
+import ModalFormularioProdutos from './componentes/ModalFormularioProdutos';
 
 function App() {
   const [produtos, setProdutos] = useState([]);
   const [baseDeDadosProdutos, setBaseDeDadosProdutos] = useState([]);
+  const [modalFormularioAberto, setModalFormularioAberto] = useState(false);
 
   function aoNovoProdutoAdicionado(produto) {
     setProdutos([...produtos, produto]);
@@ -50,34 +53,29 @@ function App() {
     fetchBaseDeDadosProdutos();
   }, []);
 
-
-  
-//   const baseDeDadosProdutosEstatico = [
-//   {
-//     nomeProduto: 'Produto A',
-//     codigo: '123456',
-//     codigoBarras: '12345678901231'
-//   },
-//   {
-//     nomeProduto: 'Produto B',
-//     codigo: '345678',
-//     codigoBarras: '98765432109874'
-//   }
-// ];
+  const { onOpen, onOpenChange } = useDisclosure();
   return (
 
-      <div className="App">
-      <Formulario 
-        listaDeProdutos={baseDeDadosProdutos} 
-        // listaDeProdutos={baseDeDadosProdutosEstatico} 
+    <div className="App">
+      <Button onPress={() => setModalFormularioAberto(true)} class="bg-laranja text-white p-4 hover:bg-laranjaHouver transition-colors duration-300 rounded">Cadastrar produto</Button>
+
+      <ModalFormularioProdutos
         aoProdutoCadastrado={produto => aoNovoProdutoAdicionado(produto)}
+        listaDeProdutos={baseDeDadosProdutos}
+        isOpen={modalFormularioAberto}
+        onOpenChange={onOpenChange}
+
+        onClose={() => setModalFormularioAberto(false)}
+        placement="top"
       />
+
 
       <TabelaProdutos
         produtos={produtos}
         aoAtualizarProduto={aoAtualizar}
         aoExcluirProduto={aoExcluir}
       />
+
     </div>
   );
 }

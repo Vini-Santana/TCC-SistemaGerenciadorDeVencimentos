@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const baseDeDadosProdutosAPI = axios.create({baseURL: 'http://localhost:8080/baseDeDadosProdutos',})
+const baseURL = process.env.REACT_APP_API_BASE_URL;
+const baseDeDadosProdutosAPI = axios.create({baseURL: baseURL + '/baseDeDadosProdutos',})
 
 async function listarTodosBaseDeDadosProdutos(){
 

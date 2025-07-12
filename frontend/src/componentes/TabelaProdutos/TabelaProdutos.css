@@ -3,20 +3,10 @@
   padding: 20px;
 }
 
-.tabela-produtos h2 {
-  font-size: 24px;
-  color: #4b1e0e;
-  margin-bottom: 16px;
-}
 
 .tabela-produtos table {
   width: 100%;
   border-collapse: collapse;
-}
-
-.tabela-produtos thead {
-  background-color: #4b1e0e; /* Marrom escuro */
-  color: white;
 }
 
 .tabela-produtos td{
@@ -32,12 +22,9 @@
     text-align: left;
     font-size: 16px;
     color: #FFF;
+    background-color: #4b1e0e;
 }
-/* Código em negrito */
-.tabela-produtos td:nth-child(2) {
-  font-weight: bold;
-  letter-spacing: 1px;
-}
+
 
 /* Validade destacada */
 .tabela-produtos .validade {
@@ -47,3 +34,16 @@
   display: inline-block;
   color: white;
 }
+
+/* 
+.tabela-produtos h2 {
+  font-size: 24px;
+  color: #4b1e0e;
+  margin-bottom: 16px;
+} */
+
+/* Código em negrito
+.tabela-produtos td:nth-child(2) {
+  font-weight: bold;
+  letter-spacing: 1px;
+} */
