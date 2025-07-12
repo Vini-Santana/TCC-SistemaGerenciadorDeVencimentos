@@ -6,6 +6,10 @@ import java.util.List;
 
 public interface BaseDeDadosProdutoRepository extends JpaRepository<BaseDeDadosProdutoEntity, Long> {
 
-    List<BaseDeDadosProdutoEntity> findBynomeProdutoStartingWithIgnoreCase(String nomeProduto);
-    List<BaseDeDadosProdutoEntity> findByCodigoStartingWithIgnoreCase(String codigo);
+//    List<BaseDeDadosProdutoEntity> findBynomeProdutoStartingWithIgnoreCase(String nomeProduto);
+//    List<BaseDeDadosProdutoEntity> findByCodigoStartingWithIgnoreCase(String codigo);
+    List<BaseDeDadosProdutoEntity> findBynomeProduto(String nomeProduto);
+    List<BaseDeDadosProdutoEntity> findByCodigo(String codigo);
+    List<BaseDeDadosProdutoEntity> findByCodigoBarras(String codigo);
+
 }

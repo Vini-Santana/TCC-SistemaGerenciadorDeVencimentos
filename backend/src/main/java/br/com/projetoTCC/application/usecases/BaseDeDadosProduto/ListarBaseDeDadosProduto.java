@@ -29,4 +29,8 @@ public class ListarBaseDeDadosProduto {
     public BaseDeDadosProduto listarBaseDeDadosProdutoPorId(Long id){
         return repositorioDeBaseDeDadosProduto.listarBaseDeDadosProdutoPorId(id);
     }
+
+    public List<BaseDeDadosProduto> listarBaseDeDadosProdutoPorCodigoBarras(String codigoBarras){
+        return repositorioDeBaseDeDadosProduto.listarBaseDeDadosProdutoPorCodigoBarras(codigoBarras);
+    }
 }

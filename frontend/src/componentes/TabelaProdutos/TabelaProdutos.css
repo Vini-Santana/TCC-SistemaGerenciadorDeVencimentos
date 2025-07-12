@@ -1,0 +1,49 @@
+.tabela-produtos {
+  font-family: 'Inter', sans-serif;
+  padding: 20px;
+}
+
+
+.tabela-produtos table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tabela-produtos td{
+  padding: 12px 10px;
+  text-align: left;
+  border-bottom: 1px solid #ccc;
+  font-size: 15px;
+  color: #4b1e0e;
+}
+
+.tabela-produtos th{
+    padding: 12px 10px;
+    text-align: left;
+    font-size: 16px;
+    color: #FFF;
+    background-color: #4b1e0e;
+}
+
+
+/* Validade destacada */
+.tabela-produtos .validade {
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-weight: bold;
+  display: inline-block;
+  color: white;
+}
+
+/* 
+.tabela-produtos h2 {
+  font-size: 24px;
+  color: #4b1e0e;
+  margin-bottom: 16px;
+} */
+
+/* Código em negrito
+.tabela-produtos td:nth-child(2) {
+  font-weight: bold;
+  letter-spacing: 1px;
+} */

@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 public class Produto {
 
+    private Long id;
     private String nomeProduto;
     private String codigo;
     private Integer quantidade;
@@ -11,6 +12,18 @@ public class Produto {
     private String observacoes;
     private String lote;
     private LocalDate ultimaModificacao;
+
+    public Produto(Long id, String nomeProduto, String codigo, Integer quantidade, LocalDate validade, String observacoes, String lote, LocalDate ultimaModificacao) {
+        this.id = id;
+        this.nomeProduto = nomeProduto;
+        this.codigo = codigo;
+        this.quantidade = quantidade;
+        this.validade = validade;
+        this.observacoes = observacoes;
+        this.lote = lote;
+        this.ultimaModificacao = ultimaModificacao;
+
+    }
 
     public Produto(String nomeProduto, String codigo, Integer quantidade, LocalDate validade, String observacoes, String lote, LocalDate ultimaModificacao) {
         this.nomeProduto = nomeProduto;
@@ -20,6 +33,10 @@ public class Produto {
         this.observacoes = observacoes;
         this.lote = lote;
         this.ultimaModificacao = ultimaModificacao;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getNomeProduto() {

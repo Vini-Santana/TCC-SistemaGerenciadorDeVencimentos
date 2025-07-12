@@ -14,9 +14,9 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
     }
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<String> handleGenericException(Exception ex) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Não foram informados todos os parâmetros: ");
-    }
+//    @ExceptionHandler(Exception.class)
+//    public ResponseEntity<String> handleGenericException(Exception ex) {
+//        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Não foram informados todos os parâmetros");
+//    }
 }
 

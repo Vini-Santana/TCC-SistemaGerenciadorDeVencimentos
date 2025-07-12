@@ -67,69 +67,8 @@
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>com.github.eirslett</groupId>
-				<artifactId>frontend-maven-plugin</artifactId>
-				<version>1.15.0</version> <!-- Use a versão mais recente possível -->
-				<configuration>
-					<workingDirectory>../frontend</workingDirectory>
-				</configuration>
-				<executions>
-					<!-- Instalar Node e NPM -->
-					<execution>
-						<id>install node and npm</id>
-						<goals>
-							<goal>install-node-and-npm</goal>
-						</goals>
-						<configuration>
-							<nodeVersion>v18.17.1</nodeVersion> <!-- Use uma versão compatível -->
-							<npmVersion>9.8.1</npmVersion>
-						</configuration>
-					</execution>
-
-					<!-- Instalar dependências do npm -->
-					<execution>
-						<id>npm install</id>
-						<goals>
-							<goal>npm</goal>
-						</goals>
-						<configuration>
-							<arguments>install</arguments>
-						</configuration>
-					</execution>
-
-					<!-- Build do React -->
-					<execution>
-						<id>npm run build</id>
-						<goals>
-							<goal>npm</goal>
-						</goals>
-						<configuration>
-							<arguments>run build</arguments>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
 				<artifactId>maven-resources-plugin</artifactId>
 				<version>3.3.0</version>
-				<executions>
-					<execution>
-						<id>copy-react-build</id>
-						<phase>process-resources</phase>
-						<goals>
-							<goal>copy-resources</goal>
-						</goals>
-						<configuration>
-							<outputDirectory>${project.basedir}/src/main/resources/static</outputDirectory>
-							<resources>
-								<resource>
-									<directory>../frontend/build</directory>
-									<filtering>false</filtering>
-								</resource>
-							</resources>
-						</configuration>
-					</execution>
-				</executions>
 			</plugin>
 
 			<plugin>

@@ -11,6 +11,7 @@ public interface RepositorioDeBaseDeDadosProduto {
     List<BaseDeDadosProduto> listarTodosBaseDeDadosProduto();
     List<BaseDeDadosProduto> listarBaseDeDadosProdutoPorNome(String nomeProduto);
     List<BaseDeDadosProduto> listarBaseDeDadosProdutoPorCodigo(String codigo);
+    List<BaseDeDadosProduto> listarBaseDeDadosProdutoPorCodigoBarras(String codigoBarras);
     BaseDeDadosProduto listarBaseDeDadosProdutoPorId(Long Id);
     BaseDeDadosProduto deletarBaseDeDadosProduto(Long id, BaseDeDadosProduto produto);
     BaseDeDadosProduto alterarBaseDeDadosProduto(Long id, BaseDeDadosProduto produto);

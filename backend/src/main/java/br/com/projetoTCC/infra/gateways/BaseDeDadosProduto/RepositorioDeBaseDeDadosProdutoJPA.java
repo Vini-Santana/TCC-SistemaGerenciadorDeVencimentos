@@ -48,14 +48,21 @@ public class RepositorioDeBaseDeDadosProdutoJPA implements RepositorioDeBaseDeDa
 
     @Override
     public List<BaseDeDadosProduto> listarBaseDeDadosProdutoPorNome(String nomeProduto) {
-        return repository.findBynomeProdutoStartingWithIgnoreCase(nomeProduto).stream()
+        return repository.findBynomeProduto(nomeProduto).stream()
                 .map(mapper::toDomain) //para cada usuário encontrado, faça algo (toDomain)
                 .collect(Collectors.toList());
     }
 
     @Override
     public List<BaseDeDadosProduto> listarBaseDeDadosProdutoPorCodigo(String codigo) {
-        return repository.findByCodigoStartingWithIgnoreCase(codigo).stream()
+        return repository.findByCodigo(codigo).stream()
+                .map(mapper::toDomain) //para cada usuário encontrado, faça algo (toDomain)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<BaseDeDadosProduto> listarBaseDeDadosProdutoPorCodigoBarras(String codigo) {
+        return repository.findByCodigoBarras(codigo).stream()
                 .map(mapper::toDomain) //para cada usuário encontrado, faça algo (toDomain)
                 .collect(Collectors.toList());
     }

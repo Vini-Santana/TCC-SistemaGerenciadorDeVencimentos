@@ -27,6 +27,14 @@ public class RepositorioDeProdutoJpa implements RepositorioDeProduto {
         return mapper.toDomain(entity);
     }
 
+
+//    public List<Produto> validaProdutoExistente(Produto produto) {
+//
+//        repository.findByNomeProdutoStartingWithIgnoreCase(nomeProduto).stream()
+//                .map(mapper::toDomain) //para cada usuário encontrado, faça algo (toDomain)
+//                .collect(Collectors.toList());
+//    }
+
     @Override
     public Produto alterarProduto(Long id, Produto produto) {
 

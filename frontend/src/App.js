@@ -1,57 +1,81 @@
-import React, { useState } from 'react';
-import './App.css';
+import React, { useEffect, useState } from 'react';
+import './index.css';
+import Formulario from './componentes/Formulario';
+import TabelaProdutos from './componentes/TabelaProdutos/index';
+import { listarTodosProdutos, atualizarProduto, deletarProduto } from './servicos/produtos';
+import { listarTodosBaseDeDadosProdutos } from './servicos/baseDeDadosProdutos';
+import { Button, useDisclosure } from '@heroui/react';
+import ModalFormularioProdutos from './componentes/ModalFormularioProdutos';
 
 function App() {
-  // Estado que armazena os dados do produto
-  const [produto, setProduto] = useState({
-    codigo: '',
-    lote: '',
-    validade: '',
-    quantidade: '',
-    observacoes: ''
-  });
+  const [produtos, setProdutos] = useState([]);
+  const [baseDeDadosProdutos, setBaseDeDadosProdutos] = useState([]);
+  const [modalFormularioAberto, setModalFormularioAberto] = useState(false);
 
-  // Atualiza o estado quando o usuário digita algo
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setProduto(prevState => ({
-      ...prevState,
-      [name]: value
-    }));
-  };
+  function aoNovoProdutoAdicionado(produto) {
+    setProdutos([...produtos, produto]);
+  }
 
-  // Função que executa quando o formulário é enviado
-  const handleSubmit = (e) => {
-    e.preventDefault(); // evita o recarregamento da página
-    console.log('Produto cadastrado:', produto); // mostra no console
-    alert('Produto cadastrado com sucesso!');
-  };
+  async function fetchProdutos() {
+    const listaDeProdutosRecebida = await listarTodosProdutos();
+    setProdutos(listaDeProdutosRecebida);
+  }
 
+  async function fetchBaseDeDadosProdutos() {
+    const listaDeProdutosRecebida = await listarTodosBaseDeDadosProdutos();
+    setBaseDeDadosProdutos(listaDeProdutosRecebida);
+  }
+
+  async function aoAtualizar(produtoAtualizado) {
+    try {
+      await atualizarProduto(produtoAtualizado.id, produtoAtualizado);
+      const novaLista = produtos.map(p =>
+        p.id === produtoAtualizado.id ? produtoAtualizado : p
+      );
+      setProdutos(novaLista);
+    } catch (erro) {
+      console.error('Erro ao atualizar produto:', erro);
+    }
+  }
+
+  async function aoExcluir(produto) {
+    try {
+      await deletarProduto(produto.id, produto);
+      const novaLista = produtos.filter(p => p.id !== produto.id);
+      setProdutos(novaLista);
+    } catch (erro) {
+      console.error('Erro ao excluir produto:', erro);
+    }
+  }
+
+  useEffect(() => {
+    fetchProdutos();
+    fetchBaseDeDadosProdutos();
+  }, []);
+
+  const { onOpen, onOpenChange } = useDisclosure();
   return (
-    <div className="container">
-      <h1>Cadastro de Produto</h1>
-      <form onSubmit={handleSubmit}>
 
-        <label>Nome do Produto:</label>
-        <input type="text" name="nome" value={produto.nome} onChange={handleChange} required />
+    <div className="App">
+      <Button onPress={() => setModalFormularioAberto(true)} class="bg-laranja text-white p-4 hover:bg-laranjaHouver transition-colors duration-300 rounded">Cadastrar produto</Button>
 
-        <label>Código do Produto:</label>
-        <input type="text" name="codigo" value={produto.codigo} onChange={handleChange} required />
-        
-        <label>Código do Lote:</label>
-        <input type="text" name="lote" value={produto.lote} onChange={handleChange} required />
-        
-        <label>Data de Validade:</label>
-        <input type="date" name="validade" value={produto.validade} onChange={handleChange} required />
-        
-        <label>Quantidade:</label>
-        <input type="number" name="quantidade" value={produto.quantidade} onChange={handleChange} required />
-        
-        <label>Observações:</label>
-        <textarea name="observacoes" value={produto.observacoes} onChange={handleChange}></textarea>
-        
-        <button type="submit">Cadastrar</button>
-      </form>
+      <ModalFormularioProdutos
+        aoProdutoCadastrado={produto => aoNovoProdutoAdicionado(produto)}
+        listaDeProdutos={baseDeDadosProdutos}
+        isOpen={modalFormularioAberto}
+        onOpenChange={onOpenChange}
+
+        onClose={() => setModalFormularioAberto(false)}
+        placement="top"
+      />
+
+
+      <TabelaProdutos
+        produtos={produtos}
+        aoAtualizarProduto={aoAtualizar}
+        aoExcluirProduto={aoExcluir}
+      />
+
     </div>
   );
 }
