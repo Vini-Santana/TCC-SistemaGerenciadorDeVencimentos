@@ -3,8 +3,12 @@ const baseURL = process.env.REACT_APP_API_BASE_URL;
 const produtosAPI = axios.create({baseURL: baseURL + '/produtos',})
 
 async function listarTodosProdutos(){
-
     const response = await produtosAPI.get('')
+    return response.data
+}
+
+async function listarProdutosPorId(id){
+    const response = await produtosAPI.get(`/buscarPor?id=${id}`, id)
     return response.data
 }
 
@@ -24,5 +28,6 @@ export {
     listarTodosProdutos,
     cadastrarProduto,
     atualizarProduto,
-    deletarProduto
+    deletarProduto,
+    listarProdutosPorId,
 };

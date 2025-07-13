@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import './index.css';
-import Formulario from './componentes/Formulario';
 import TabelaProdutos from './componentes/TabelaProdutos/index';
-import { listarTodosProdutos, atualizarProduto, deletarProduto } from './servicos/produtos';
+import {
+  listarTodosProdutos,
+  atualizarProduto,
+  deletarProduto,
+  listarProdutosPorId
+} from './servicos/produtos';
 import { listarTodosBaseDeDadosProdutos } from './servicos/baseDeDadosProdutos';
 import { Button, useDisclosure } from '@heroui/react';
 import ModalFormularioProdutos from './componentes/ModalFormularioProdutos';
@@ -11,32 +15,40 @@ function App() {
   const [produtos, setProdutos] = useState([]);
   const [baseDeDadosProdutos, setBaseDeDadosProdutos] = useState([]);
   const [modalFormularioAberto, setModalFormularioAberto] = useState(false);
+  const [dadosFormulario, setDadosFormulario] = useState(null); // <- aqui ficam os dados do formulário
+
+
 
   function aoNovoProdutoAdicionado(produto) {
-    setProdutos([...produtos, produto]);
+    setProdutos(prev => [...produtos, produto]);
   }
 
-  async function fetchProdutos() {
+  async function getTodosProdutos() {
     const listaDeProdutosRecebida = await listarTodosProdutos();
     setProdutos(listaDeProdutosRecebida);
   }
 
-  async function fetchBaseDeDadosProdutos() {
+  async function getProdutosPorId() {
+    const listaDeProdutosRecebida = await listarProdutosPorId();
+    setProdutos(listaDeProdutosRecebida);
+  }
+
+  async function getBaseDeDadosProdutos() {
     const listaDeProdutosRecebida = await listarTodosBaseDeDadosProdutos();
     setBaseDeDadosProdutos(listaDeProdutosRecebida);
   }
 
   async function aoAtualizar(produtoAtualizado) {
     try {
-      await atualizarProduto(produtoAtualizado.id, produtoAtualizado);
-      const novaLista = produtos.map(p =>
-        p.id === produtoAtualizado.id ? produtoAtualizado : p
+      setProdutos(prev =>
+        prev.map(p => p.id === produtoAtualizado.id ? produtoAtualizado : p)
       );
-      setProdutos(novaLista);
+
     } catch (erro) {
-      console.error('Erro ao atualizar produto:', erro);
+      console.error('Erro ao atualizar produto: ', erro);
     }
   }
+
 
   async function aoExcluir(produto) {
     try {
@@ -49,31 +61,53 @@ function App() {
   }
 
   useEffect(() => {
-    fetchProdutos();
-    fetchBaseDeDadosProdutos();
+    async function fetchData() {
+      await getTodosProdutos();
+      await getBaseDeDadosProdutos();
+    }
+    fetchData();
   }, []);
 
-  const { onOpen, onOpenChange } = useDisclosure();
+  // function atualizarProdutoNaLista(produtoAtualizado) {
+  //   setProdutos(produtos.map(p => p.id === produtoAtualizado.id ? produtoAtualizado : p));
+  // }
+  // const abrirModalFormulario = (dados) => {
+  //   const acao = dados.modo === "cadastro"
+  //     ? aoNovoProdutoAdicionado
+  //     : atualizarProdutoNaLista;
+
+  //   setDadosFormulario({
+  //     ...dados,
+  //     acao
+  //   });
+  //   setModalFormularioAberto(true);
+  // };
+  const abrirModalFormulario = (dados) => {
+    setDadosFormulario(dados);
+    setModalFormularioAberto(true);
+  };
   return (
 
     <div className="App">
-      <Button onPress={() => setModalFormularioAberto(true)} class="bg-laranja text-white p-4 hover:bg-laranjaHouver transition-colors duration-300 rounded">Cadastrar produto</Button>
+      <Button onPress={() => abrirModalFormulario({
+        label: "Cadastro de Produto",
+        acao: aoNovoProdutoAdicionado,
+        listaDeProdutos: baseDeDadosProdutos,
+        modo: "cadastro"
+      })} class="bg-laranja text-white p-4 hover:bg-laranjaHouver duration-300">Cadastrar produto</Button>
 
       <ModalFormularioProdutos
-        aoProdutoCadastrado={produto => aoNovoProdutoAdicionado(produto)}
-        listaDeProdutos={baseDeDadosProdutos}
+        dadosFormulario={dadosFormulario}
         isOpen={modalFormularioAberto}
-        onOpenChange={onOpenChange}
-
         onClose={() => setModalFormularioAberto(false)}
         placement="top"
       />
 
-
       <TabelaProdutos
+        abrirModalFormulario={abrirModalFormulario}
         produtos={produtos}
-        aoAtualizarProduto={aoAtualizar}
         aoExcluirProduto={aoExcluir}
+        aoAtualizarProduto={aoAtualizar}
       />
 
     </div>

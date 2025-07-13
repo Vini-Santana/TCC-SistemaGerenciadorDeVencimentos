@@ -1,6 +1,6 @@
 import './CampoTexto.css';
 
-const CampoTexto = ({ label, valor, aoAlterado, placeholder, obrigatorio, type = "text", erro }) => {
+const CampoTexto = ({ label, valor, aoAlterado, placeholder, obrigatorio, type, erro, readOnly}) => {
     return (
         <div className={`campo-texto ${erro ? 'erro' : ''}`}>
             <label>{label}</label>
@@ -10,6 +10,7 @@ const CampoTexto = ({ label, valor, aoAlterado, placeholder, obrigatorio, type =
                 onChange={e => aoAlterado(e.target.value)}
                 placeholder={placeholder}
                 required={obrigatorio}
+                readOnly={readOnly}
             />
         </div>
     );

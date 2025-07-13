@@ -109,7 +109,7 @@ const statusColorMap = {
 };
 export const columns = [
     { name: "Código", uid: "codigo" },
-    { name: "Nome do produto", uid: "nomeDoProduto" },
+    { name: "Nome do produto", uid: "nomeProduto" },
     { name: "Qtd em estoque", uid: "quantidade" },
     { name: "Validade", uid: "validade" },
     { name: "Lote", uid: "lote" },
@@ -120,15 +120,15 @@ export const columns = [
 
 
 
-const TabelaProdutos = ({ produtos, aoExcluirProduto, aoAtualizarProduto, produtosEstatico }) => {
+const TabelaProdutos = ({ produtos, aoExcluirProduto, aoAtualizarProduto, abrirModalFormulario }) => {
     const [produtoEditando, setProdutoEditando] = useState(null);
     const [produtoTemp, setProdutoTemp] = useState({});
 
 
 
     const handleEditar = (produto) => {
-        setProdutoEditando(produto.codigo);
-        setProdutoTemp({ ...produto });
+        // setProdutoEditando(produto.codigo);
+        // setProdutoTemp({ ...produto });
     };
 
     const handleCancelar = () => {
@@ -136,31 +136,21 @@ const TabelaProdutos = ({ produtos, aoExcluirProduto, aoAtualizarProduto, produt
         setProdutoTemp({});
     };
 
-    const handleSalvar = () => {
-        aoAtualizarProduto(produtoTemp);
-        setProdutoEditando(null);
-        setProdutoTemp({});
-    };
 
-    const handleAlterarCampo = (campo, valor) => {
-        setProdutoTemp(prev => ({ ...prev, [campo]: valor }));
-    };
-
-
-    const renderCell = React.useCallback((user, columnKey) => {
-        const cellValue = user[columnKey];
+    const renderCell = React.useCallback((produto, columnKey) => {
+        const cellValue = produto[columnKey];
 
         switch (columnKey) {
-            case "nomeDoProduto":
+            case "nomeProduto":
                 return (
                     <div className="flex flex-col">
-                        {/* <p className="text-bold text-sm capitalize">{cellValue}</p> */}
-                        <p>{user.nomeDoProduto}</p>
+                        <p className="text-bold text-sm capitalize">{cellValue}</p>
+                        {/* <p>{user.nomeDoProduto}</p> */}
                     </div>
                 );
             case "status":
                 return (
-                    <Chip className="capitalize" color={statusColorMap[user.status]} size="sm" variant="flat">
+                    <Chip className="capitalize" color={statusColorMap[produto.status]} size="sm" variant="flat">
                         {cellValue}
                     </Chip>
                 );
@@ -169,7 +159,12 @@ const TabelaProdutos = ({ produtos, aoExcluirProduto, aoAtualizarProduto, produt
                     <div className="relative flex items-center gap-2" >
                         <Tooltip content="Editar produto">
                             <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
-                                <EditIcon />
+                                <EditIcon onClick={() => abrirModalFormulario({
+                                    label: "Editar produto",
+                                    acao: (produto) => aoAtualizarProduto(produto),
+                                    produto: produto,
+                                    modo: "edicao",                             
+                                })} />
                             </span>
                         </Tooltip>
                         <Tooltip color="danger" content="Delete user">

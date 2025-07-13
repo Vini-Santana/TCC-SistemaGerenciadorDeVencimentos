@@ -1,7 +1,7 @@
 import './CampoListProdutos.css';
 import Select from 'react-select';
 
-const CampoListProdutos = ({ itens, valor, aoAlterado, label, obrigatorio }) => {
+const CampoListProdutos = ({itens =[], valor, aoAlterado, label, obrigatorio }) => {
     const opcoes = itens.map(item => ({
         label: item.nomeProduto,
         value: item.nomeProduto,
