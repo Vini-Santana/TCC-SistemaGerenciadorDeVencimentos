@@ -1,29 +1,27 @@
-
-import {
-    Modal,
+import { Alert, Modal,
     ModalContent,
-    ModalBody,
-} from "@heroui/react";
-import Formulario from "../Formulario"
-import './ModalFormularioProdutos.css';
+    ModalBody, } from '@heroui/react';
+import './ModalAlerta.css';
+import Formulario from '../Formulario';
 
-const ModalFormularioProdutos = ({ dadosFormulario, onClose, placement, isOpen, }) => {
-
+const ModalAlerta = (onClose, placement, isOpen, dadosFormulario) => {
     return (
 
         <div className="modal">
             <Modal isOpen={isOpen} placement={placement} onClose={onClose} size="3xl">
                 <ModalContent>
-                    <ModalBody class="p-0">
+                    <ModalBody>
+
                         <Formulario
                             dadosFormulario={dadosFormulario}
                             onClose={onClose}
                         />
+
                     </ModalBody>
                 </ModalContent>
             </Modal>
         </div>
-    )
-}
+    );
+};
 
-export default ModalFormularioProdutos;
+export default ModalAlerta;

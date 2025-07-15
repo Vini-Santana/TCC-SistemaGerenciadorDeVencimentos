@@ -1,19 +1,36 @@
-
 #root {
   height: 100%;
 }
-body{
+
+body {
   margin: 0;
-  font-family: Arial, sans-serif;
+  font-family: 'Inter'; 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  
+
 }
 
-code{
+code {
   font-family: 'Courier New', Courier, monospace;
 }
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.botao-cadastrar:hover {
+  background-color: #9F490F;
+  transition: background-color 0.3s ease;
+}
+
+.botao-cadastrar {
+  background-color: #FE7416;
+  color: #FFF;
+  border-radius: 4px;
+  font-weight: 500;
+  font-size: 16px;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  margin: 16px 13px;
+}
