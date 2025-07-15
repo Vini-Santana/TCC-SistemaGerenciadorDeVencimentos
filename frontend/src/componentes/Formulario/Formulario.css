@@ -1,73 +1,81 @@
 .formulario {
-  padding: 30px;
-  background-color: #fdfafa;
-  border: 1px solid #4b1e0e;
+  /* background-color: #fdfafa; */
+  /* border: 1px solid #4b1e0e; */
   border-radius: 8px;
   width: 100%;
-  max-width: 700px;
-  margin: auto;
-  font-family: 'Inter', sans-serif;
+  /* max-width: 700px; */
+  /* margin: auto; */
   color: #4b1e0e;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  /* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); */
   position: relative;
 }
 
 .formulario h2 {
   font-size: 22px;
-  margin-bottom: 24px;
+   margin: 8px 0 1px 10px;
   font-weight: 600;
   color: #4b1e0e;
+}
+
+.linha {
+  border-top: 2px solid #4b1e0e;
+  margin-bottom: 10px;
+  width: 100%;
 }
 
 .formulario form {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 8px;
+  padding: 16px 20px;
+
 }
 
 .formulario label {
   display: block;
   font-weight: 500;
-  margin-bottom: 6px;
+  margin-bottom: 2px;
 }
 
 .formulario input,
 .formulario select,
 .formulario textarea {
-  padding: 10px;
+  padding: 6px 8px;
   border: 1px solid #4b1e0e;
   border-radius: 4px;
   width: 100%;
-  font-size: 14px;
+  font-size: 13px;
   font-family: 'Inter', sans-serif;
   color: rgb(75, 30, 14);
 }
 
 .formulario .linha-dupla {
   display: flex;
-  gap: 20px;
+  gap: 10px;
+  margin-bottom: 4px;
 }
 
 .formulario .linha-dupla > div {
   flex: 1;
 }
 
+
 .formulario button {
-  margin-top: 20px;
+  margin-top: 10px;
+  border-radius: 10px;
+  font-weight: 500;
+  font-size: 16px;
+  padding: 10px 20px;
+  
+  cursor: pointer;
 }
 
 /* Botões personalizados */
 button[type="submit"],
 .botao-salvar {
   background-color: #FE7416;
-    border-radius: 10px;
-    font-weight: 700;
-    font-size: 18px;
-    padding: 32px;
     border: none;
-    cursor: pointer;
     color: #FFF;
-    margin: 16px 0;
 }
 
 button[type="submit"]:hover,
@@ -78,14 +86,8 @@ button[type="submit"]:hover,
 
 .botao-cancelar {
   background-color: #FFF;
-    border-radius: 10px;
     border-color: #FE7416;
-    font-weight: 700;
-    font-size: 18px;
-    padding: 32px;
-    cursor: pointer;
     color: #FE7416;
-    margin: 16px 0;
 }
 
 .botao-cancelar:hover {
@@ -99,4 +101,9 @@ button[type="submit"]:hover,
   .formulario .linha-dupla {
     flex-direction: column;
   }
+}
+.formulario .linha-dupla:last-of-type {
+  justify-content: flex-start;
+  gap: 10px;
+  margin-top: 10px; /* ou menos se quiser mais compacto */
 }

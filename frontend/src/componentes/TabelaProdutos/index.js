@@ -1,5 +1,4 @@
 import './TabelaProdutos.css';
-import { useState } from 'react';
 import React from 'react';
 import {
     Table,
@@ -11,6 +10,8 @@ import {
     Chip,
     Tooltip,
 } from "@heroui/react";
+import dayjs from 'dayjs';
+
 export const DeleteIcon = (props) => {
     return (
         <svg
@@ -121,21 +122,6 @@ export const columns = [
 
 
 const TabelaProdutos = ({ produtos, aoExcluirProduto, aoAtualizarProduto, abrirModalFormulario }) => {
-    const [produtoEditando, setProdutoEditando] = useState(null);
-    const [produtoTemp, setProdutoTemp] = useState({});
-
-
-
-    const handleEditar = (produto) => {
-        // setProdutoEditando(produto.codigo);
-        // setProdutoTemp({ ...produto });
-    };
-
-    const handleCancelar = () => {
-        setProdutoEditando(null);
-        setProdutoTemp({});
-    };
-
 
     const renderCell = React.useCallback((produto, columnKey) => {
         const cellValue = produto[columnKey];
@@ -154,6 +140,19 @@ const TabelaProdutos = ({ produtos, aoExcluirProduto, aoAtualizarProduto, abrirM
                         {cellValue}
                     </Chip>
                 );
+            case "ultimaModificacao":
+                return (
+
+                    // <p>{new Date(cellValue).toLocaleDateString('pt-BR')}</p>
+                    <p>{dayjs(cellValue).format('DD/MM/YYYY')}</p>
+
+                )
+            case "validade":
+                return (
+                    // <p>{new Date(cellValue).toLocaleDateString('pt-BR')}</p>
+                    <p>{dayjs(cellValue).format('DD/MM/YYYY')}</p>
+
+                )
             case "opcoes":
                 return (
                     <div className="relative flex items-center gap-2" >
@@ -163,13 +162,20 @@ const TabelaProdutos = ({ produtos, aoExcluirProduto, aoAtualizarProduto, abrirM
                                     label: "Editar produto",
                                     acao: (produto) => aoAtualizarProduto(produto),
                                     produto: produto,
-                                    modo: "edicao",                             
+                                    modo: "edicao",
                                 })} />
                             </span>
                         </Tooltip>
                         <Tooltip color="danger" content="Delete user">
                             <span className="text-lg text-danger cursor-pointer active:opacity-50">
-                                <DeleteIcon />
+                                <DeleteIcon
+                                    onClick={() => {
+                                        const confirmacao = window.confirm(`Deseja realmente excluir o produto "${produto.nomeProduto}"?`);
+                                        if (confirmacao) {
+                                            aoExcluirProduto(produto);
+                                        }
+                                    }}
+                                />
                             </span>
                         </Tooltip>
                     </div>

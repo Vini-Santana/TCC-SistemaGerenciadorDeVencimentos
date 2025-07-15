@@ -2,34 +2,33 @@ import CampoTexto from '../CampoTexto';
 import CampoListProdutos from '../CampoListProdutos';
 import './Formulario.css';
 import { useState } from 'react';
-import { atualizarProduto, cadastrarProduto } from '../../servicos/produtos';
-import { em } from 'framer-motion/client';
+import { atualizarProduto, cadastrarProduto, listarTodosProdutos } from '../../servicos/produtos';
 
 const Formulario = ({ onClose, dadosFormulario }) => {
     const [parametros, setParametros] = useState(() => {
-  if (dadosFormulario.modo !== 'cadastro' && dadosFormulario.produto) {
-    return {
-      id: dadosFormulario.produto.id || '',
-      nomeProduto: dadosFormulario.produto.nomeProduto || '',
-      codigo: dadosFormulario.produto.codigo || '',
-      lote: dadosFormulario.produto.lote || '',
-      validade: dadosFormulario.produto.validade || '',
-      quantidade: dadosFormulario.produto.quantidade || '',
-      observacoes: dadosFormulario.produto.observacoes || '',
-    };
-  } else {
-    return {
-      id: '',
-      nomeProduto: '',
-      codigo: '',
-      lote: '',
-      validade: '',
-      quantidade: '',
-      observacoes: ''
-    };
-  }
-});
-    
+        if (dadosFormulario.modo !== 'cadastro' && dadosFormulario.produto) {
+            return {
+                id: dadosFormulario.produto.id || '',
+                nomeProduto: dadosFormulario.produto.nomeProduto || '',
+                codigo: dadosFormulario.produto.codigo || '',
+                lote: dadosFormulario.produto.lote || '',
+                validade: dadosFormulario.produto.validade || '',
+                quantidade: dadosFormulario.produto.quantidade || '',
+                observacoes: dadosFormulario.produto.observacoes || '',
+            };
+        } else {
+            return {
+                id: '',
+                nomeProduto: '',
+                codigo: '',
+                lote: '',
+                validade: '',
+                quantidade: '',
+                observacoes: ''
+            };
+        }
+    });
+
     const [produtoSelecionado, setProdutoSelecionado] = useState(null);
     const [codigoInvalido, setCodigoInvalido] = useState(false);
     const emModoEdicao = dadosFormulario.modo !== 'cadastro';
@@ -85,31 +84,41 @@ const Formulario = ({ onClose, dadosFormulario }) => {
             alert('O código inserido não corresponde ao produto selecionado.');
             return;
         }
+        const hojeCorrigido = new Date();
+        hojeCorrigido.setMinutes(hojeCorrigido.getMinutes() - hojeCorrigido.getTimezoneOffset());
 
         const produto = {
             ...parametros,
-            ultimaModificacao: new Date().toISOString().split("T")[0]
+            ultimaModificacao: hojeCorrigido.toISOString().split("T")[0]
         };
 
         try {
-        if (emModoEdicao) {
-            await atualizarProduto(produto.id, produto);
-            dadosFormulario.acao(produto);
-            onClose();
-        }else{
+            if (emModoEdicao) {
+                await atualizarProduto(produto.id, produto);
+                dadosFormulario.acao(produto);
+                onClose();
+            } else {
+                const produtos = await listarTodosProdutos();
+                if (produtos.map(p => p.nomeProduto).includes(produto.nomeProduto) && produtos.map(p => p.validade).includes(produto.validade)) {
+                    alert('Produto ja cadastrado');
+                    console.log('Produto ja cadastrado');
+                } else {
+                    await cadastrarProduto(produto);
+                    dadosFormulario.acao(produto);
+                    onClose();
+                }
 
-            await cadastrarProduto(produto);
-            dadosFormulario.acao(produto);
-            onClose();
-        }
+            }
         } catch (erro) {
             console.error('Erro ao cadastrar o produto:', erro);
         }
     };
     return (
         <section className='formulario'>
+            <h2>{dadosFormulario.label}</h2>
+            <hr className='linha' />
             <form onSubmit={aoSalvar}>
-                <h2>{dadosFormulario.label}</h2>
+
 
                 {dadosFormulario.modo === 'cadastro' ? (
                     <CampoListProdutos
@@ -117,6 +126,7 @@ const Formulario = ({ onClose, dadosFormulario }) => {
                         valor={produtoSelecionado?.value || ''}
                         aoAlterado={aoAlterarProduto}
                         label="Nome do produto"
+                        placeholder="Digite o nome do produto"
                         obrigatorio
                     />
                 ) : (
@@ -129,7 +139,7 @@ const Formulario = ({ onClose, dadosFormulario }) => {
                         readOnly={true}
                     />
                 )}
-            
+
                 <div className="linha-dupla">
 
                     <CampoTexto
@@ -180,9 +190,9 @@ const Formulario = ({ onClose, dadosFormulario }) => {
                 />
 
                 <div className="linha-dupla">
-                    <button className='botao-salvar'>Salvar</button>
+                    <button className='botao-salvar' type='submit'>Salvar</button>
+                    <button onClick={onClose} className='botao-cancelar' type='button'>Cancelar</button>
                 </div>
-                <button onClick={onClose} className='botao-cancelar'>Cancelar</button>
             </form>
         </section>
     );

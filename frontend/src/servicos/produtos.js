@@ -17,6 +17,7 @@ async function cadastrarProduto(produto){
 }
 
 async function atualizarProduto(id, produtoAtualizado) {
+    // produtoAtualizado.ultimaModificacao = new Date().toISOString().split("T")[0];
     await produtosAPI.put(`/${id}`, produtoAtualizado);
 }
 

@@ -1,7 +1,7 @@
 import './CampoListProdutos.css';
 import Select from 'react-select';
 
-const CampoListProdutos = ({itens =[], valor, aoAlterado, label, obrigatorio }) => {
+const CampoListProdutos = ({itens =[], valor, aoAlterado, label, obrigatorio, placeholder }) => {
     const opcoes = itens.map(item => ({
         label: item.nomeProduto,
         value: item.nomeProduto,
@@ -12,9 +12,11 @@ const CampoListProdutos = ({itens =[], valor, aoAlterado, label, obrigatorio }) 
 
         <div className="lista-de-produtos">
             <label>{label}</label>
+            
             <Select
                 options={opcoes}
                 required={obrigatorio}
+                placeholder={placeholder}
                 onChange={(opcao) => {
                     aoAlterado(opcao || null) // Passa o objeto inteiro, não só o nome
                 }}

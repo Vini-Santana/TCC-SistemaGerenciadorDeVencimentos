@@ -16,7 +16,7 @@ module.exports = {
     extend: {
       colors: {
         laranja: '#FE7416',
-        laranjaHouver: '#9F490F',
+        laranjaHover: '#9F490F',
       }
     },
   },

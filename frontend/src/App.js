@@ -8,7 +8,7 @@ import {
   listarProdutosPorId
 } from './servicos/produtos';
 import { listarTodosBaseDeDadosProdutos } from './servicos/baseDeDadosProdutos';
-import { Button, useDisclosure } from '@heroui/react';
+import { Button } from '@heroui/react';
 import ModalFormularioProdutos from './componentes/ModalFormularioProdutos';
 
 function App() {
@@ -40,10 +40,7 @@ function App() {
 
   async function aoAtualizar(produtoAtualizado) {
     try {
-      setProdutos(prev =>
-        prev.map(p => p.id === produtoAtualizado.id ? produtoAtualizado : p)
-      );
-
+      setProdutos(prev =>prev.map(p => p.id === produtoAtualizado.id ? produtoAtualizado : p));
     } catch (erro) {
       console.error('Erro ao atualizar produto: ', erro);
     }
@@ -53,8 +50,7 @@ function App() {
   async function aoExcluir(produto) {
     try {
       await deletarProduto(produto.id, produto);
-      const novaLista = produtos.filter(p => p.id !== produto.id);
-      setProdutos(novaLista);
+      setProdutos(prev => prev.filter(p => p.id !== produto.id));
     } catch (erro) {
       console.error('Erro ao excluir produto:', erro);
     }
@@ -68,20 +64,6 @@ function App() {
     fetchData();
   }, []);
 
-  // function atualizarProdutoNaLista(produtoAtualizado) {
-  //   setProdutos(produtos.map(p => p.id === produtoAtualizado.id ? produtoAtualizado : p));
-  // }
-  // const abrirModalFormulario = (dados) => {
-  //   const acao = dados.modo === "cadastro"
-  //     ? aoNovoProdutoAdicionado
-  //     : atualizarProdutoNaLista;
-
-  //   setDadosFormulario({
-  //     ...dados,
-  //     acao
-  //   });
-  //   setModalFormularioAberto(true);
-  // };
   const abrirModalFormulario = (dados) => {
     setDadosFormulario(dados);
     setModalFormularioAberto(true);
@@ -90,11 +72,16 @@ function App() {
 
     <div className="App">
       <Button onPress={() => abrirModalFormulario({
-        label: "Cadastro de Produto",
+        label: "Cadastro de produto",
         acao: aoNovoProdutoAdicionado,
         listaDeProdutos: baseDeDadosProdutos,
-        modo: "cadastro"
-      })} class="bg-laranja text-white p-4 hover:bg-laranjaHouver duration-300">Cadastrar produto</Button>
+        modo: "cadastro",
+        produto: null
+      // })} class="bg-laranja text-white p-4 hover:bg-laranjaHover duration-30">Cadastrar produto</Button>
+      })}  className="botao-cadastrar">Cadastrar produto</Button>
+
+
+      
 
       <ModalFormularioProdutos
         dadosFormulario={dadosFormulario}
