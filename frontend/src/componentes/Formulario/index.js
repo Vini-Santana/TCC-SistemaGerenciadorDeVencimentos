@@ -4,8 +4,8 @@ import './Formulario.css';
 import { useState } from 'react';
 import { atualizarProduto, cadastrarProduto, listarTodosProdutos } from '../../servicos/produtos';
 
-const Formulario = ({ onClose, dadosFormulario }) => {
-    const [parametros, setParametros] = useState(() => {
+const Formulario = ({ onClose, dadosFormulario, aoAtualizarProduto }) => {
+    const [parametrosDoProduto, setParametrosDoProduto] = useState(() => {
         if (dadosFormulario.modo !== 'cadastro' && dadosFormulario.produto) {
             return {
                 id: dadosFormulario.produto.id || '',
@@ -31,10 +31,10 @@ const Formulario = ({ onClose, dadosFormulario }) => {
 
     const [produtoSelecionado, setProdutoSelecionado] = useState(null);
     const [codigoInvalido, setCodigoInvalido] = useState(false);
-    const emModoEdicao = dadosFormulario.modo !== 'cadastro';
+    const [emModoEdicao, setEmModoEdicao] = useState(dadosFormulario.modo !== 'cadastro');
 
     const atualizarCampo = (campo, valor) => {
-        setParametros(prev => ({ ...prev, [campo]: valor }));
+        setParametrosDoProduto(prev => ({ ...prev, [campo]: valor }));
     };
 
     const aoAlterarProduto = (opcao) => {
@@ -76,11 +76,32 @@ const Formulario = ({ onClose, dadosFormulario }) => {
             setCodigoInvalido(false);
         }
     };
+    function formatarDataBR(dataISO) {
+        if (!dataISO) return '';
+        const [ano, mes, dia] = dataISO.split('-');
+        return `${dia}/${mes}/${ano}`;
+    }
+
+    const trocarParaModoEdicao = (produtoExistente) => {
+        dadosFormulario.label = 'Atualizar produto';
+
+        setParametrosDoProduto({
+            id: produtoExistente.id,
+            nomeProduto: produtoExistente.nomeProduto,
+            codigo: produtoExistente.codigo,
+            lote: produtoExistente.lote,
+            validade: produtoExistente.validade,
+            quantidade: produtoExistente.quantidade,
+            observacoes: produtoExistente.observacoes
+        });
+        dadosFormulario.acao = aoAtualizarProduto;
+        setEmModoEdicao("edicao");
+    }
 
     const aoSalvar = async (e) => {
         e.preventDefault();
 
-        if (produtoSelecionado && parametros.codigo !== produtoSelecionado.codigo) {
+        if (produtoSelecionado && parametrosDoProduto.codigo !== produtoSelecionado.codigo) {
             alert('O código inserido não corresponde ao produto selecionado.');
             return;
         }
@@ -88,7 +109,7 @@ const Formulario = ({ onClose, dadosFormulario }) => {
         hojeCorrigido.setMinutes(hojeCorrigido.getMinutes() - hojeCorrigido.getTimezoneOffset());
 
         const produto = {
-            ...parametros,
+            ...parametrosDoProduto,
             ultimaModificacao: hojeCorrigido.toISOString().split("T")[0]
         };
 
@@ -100,14 +121,20 @@ const Formulario = ({ onClose, dadosFormulario }) => {
             } else {
                 const produtos = await listarTodosProdutos();
                 if (produtos.map(p => p.nomeProduto).includes(produto.nomeProduto) && produtos.map(p => p.validade).includes(produto.validade)) {
-                    alert('Produto ja cadastrado');
-                    console.log('Produto ja cadastrado');
+                    const confirmacao = window.confirm(`Produto "${produto.nomeProduto}" com a validade "${formatarDataBR(produto.validade)}" já está cadastrado. Deseja atualizá-lo?`);
+                    if (confirmacao) {
+                        const produtoExistente = produtos.find(
+                            p => p.nomeProduto === produto.nomeProduto && p.validade === produto.validade
+                        );
+                        trocarParaModoEdicao(produtoExistente);
+                    } else {
+                        onClose();
+                    }
                 } else {
-                    await cadastrarProduto(produto);
-                    dadosFormulario.acao(produto);
+                    const produtoRetornado = await cadastrarProduto(produto);
+                    dadosFormulario.acao(produtoRetornado);
                     onClose();
                 }
-
             }
         } catch (erro) {
             console.error('Erro ao cadastrar o produto:', erro);
@@ -147,7 +174,7 @@ const Formulario = ({ onClose, dadosFormulario }) => {
                         type="text"
                         label="Código do produto"
                         placeholder="Digite o código do produto"
-                        valor={parametros.codigo}
+                        valor={parametrosDoProduto.codigo}
                         aoAlterado={emModoEdicao ? '' : aoAlterarCodigo}
                         readOnly={emModoEdicao}
                         erro={codigoInvalido}
@@ -157,7 +184,7 @@ const Formulario = ({ onClose, dadosFormulario }) => {
                         type="number"
                         label="Lote"
                         placeholder="Digite o lote"
-                        valor={parametros.lote}
+                        valor={parametrosDoProduto.lote}
                         readOnly={emModoEdicao}
                         aoAlterado={valor => atualizarCampo('lote', valor)}
                     />
@@ -168,7 +195,7 @@ const Formulario = ({ onClose, dadosFormulario }) => {
                     label="Dia de vencimento"
                     type="date"
                     placeholder="Digite o dia de vencimento"
-                    valor={parametros.validade}
+                    valor={parametrosDoProduto.validade}
                     readOnly={emModoEdicao}
                     aoAlterado={valor => atualizarCampo('validade', valor)}
                 />
@@ -177,7 +204,7 @@ const Formulario = ({ onClose, dadosFormulario }) => {
                     label="Quantidade em estoque"
                     type="number"
                     placeholder="Digite a quantidade em estoque"
-                    valor={parametros.quantidade}
+                    valor={parametrosDoProduto.quantidade}
                     aoAlterado={valor => atualizarCampo('quantidade', valor)}
                 />
 
@@ -185,7 +212,7 @@ const Formulario = ({ onClose, dadosFormulario }) => {
                     label="Observações"
                     type="text"
                     placeholder="Digite as observações"
-                    valor={parametros.observacoes}
+                    valor={parametrosDoProduto.observacoes}
                     aoAlterado={valor => atualizarCampo('observacoes', valor)}
                 />
 

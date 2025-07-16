@@ -17,8 +17,6 @@ function App() {
   const [modalFormularioAberto, setModalFormularioAberto] = useState(false);
   const [dadosFormulario, setDadosFormulario] = useState(null); // <- aqui ficam os dados do formulário
 
-
-
   function aoNovoProdutoAdicionado(produto) {
     setProdutos(prev => [...produtos, produto]);
   }
@@ -40,7 +38,7 @@ function App() {
 
   async function aoAtualizar(produtoAtualizado) {
     try {
-      setProdutos(prev =>prev.map(p => p.id === produtoAtualizado.id ? produtoAtualizado : p));
+      setProdutos(prev => prev.map(p => p.id === produtoAtualizado.id ? produtoAtualizado : p));
     } catch (erro) {
       console.error('Erro ao atualizar produto: ', erro);
     }
@@ -76,18 +74,16 @@ function App() {
         acao: aoNovoProdutoAdicionado,
         listaDeProdutos: baseDeDadosProdutos,
         modo: "cadastro",
-        produto: null
-      // })} class="bg-laranja text-white p-4 hover:bg-laranjaHover duration-30">Cadastrar produto</Button>
-      })}  className="botao-cadastrar">Cadastrar produto</Button>
+        // })} class="bg-laranja text-white p-4 hover:bg-laranjaHover duration-30">Cadastrar produto</Button>
+      })} className="botao-cadastrar">Cadastrar produto</Button>
 
-
-      
 
       <ModalFormularioProdutos
         dadosFormulario={dadosFormulario}
         isOpen={modalFormularioAberto}
         onClose={() => setModalFormularioAberto(false)}
         placement="top"
+        aoAtualizarProduto={aoAtualizar}
       />
 
       <TabelaProdutos

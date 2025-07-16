@@ -7,7 +7,7 @@ import {
 import Formulario from "../Formulario"
 import './ModalFormularioProdutos.css';
 
-const ModalFormularioProdutos = ({ dadosFormulario, onClose, placement, isOpen, }) => {
+const ModalFormularioProdutos = ({ dadosFormulario, onClose, placement, isOpen, aoAtualizarProduto}) => {
 
     return (
 
@@ -18,6 +18,7 @@ const ModalFormularioProdutos = ({ dadosFormulario, onClose, placement, isOpen, 
                         <Formulario
                             dadosFormulario={dadosFormulario}
                             onClose={onClose}
+                            aoAtualizarProduto={aoAtualizarProduto}
                         />
                     </ModalBody>
                 </ModalContent>

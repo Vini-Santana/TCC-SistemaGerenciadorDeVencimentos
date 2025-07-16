@@ -13,7 +13,8 @@ async function listarProdutosPorId(id){
 }
 
 async function cadastrarProduto(produto){
-    await produtosAPI.post('', produto)
+    const resposta = await produtosAPI.post('', produto);
+    return resposta.data;
 }
 
 async function atualizarProduto(id, produtoAtualizado) {
