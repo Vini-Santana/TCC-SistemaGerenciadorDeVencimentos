@@ -1,6 +1,7 @@
 package br.com.projetoTCC.infra.persistence.BaseDeDadosProduto;
 
 import jakarta.persistence.*;
+import org.hibernate.validator.constraints.UniqueElements;
 
 @Entity
 @Table(name = "BaseDeDadosProduto")
@@ -9,8 +10,11 @@ public class BaseDeDadosProdutoEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false, unique = true)
     private String nomeProduto;
+    @Column(nullable = false, unique = true)
     private String codigo;
+    @Column(nullable = false, unique = true)
     private String codigoBarras;
 
     public BaseDeDadosProdutoEntity() {}

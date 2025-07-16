@@ -21,7 +21,5 @@ public record ProdutoDTO(
 
         String observacoes,
 
-        LocalDate ultimaModificacao,
-
-        String lote)
+        LocalDate ultimaModificacao)
 {}

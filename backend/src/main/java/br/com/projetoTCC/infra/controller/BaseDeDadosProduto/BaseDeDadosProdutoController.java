@@ -33,15 +33,15 @@ public class BaseDeDadosProdutoController {
 
     @PostMapping
     public ResponseEntity<BaseDeDadosProdutoDTO> cadastrarBaseDeDadosProduto(@RequestBody @Valid BaseDeDadosProdutoDTO dto){
-        criarBaseDeDadosProduto.criarBaseDeDadosProduto(new BaseDeDadosProduto(dto.nomeProduto(), dto.codigo(), dto.codigoBarras()));
-        return ResponseEntity.status(HttpStatus.OK).body(new BaseDeDadosProdutoDTO(dto.nomeProduto(), dto.codigo(), dto.codigoBarras()));
+        BaseDeDadosProduto baseDeDadosProduto = criarBaseDeDadosProduto.criarBaseDeDadosProduto(new BaseDeDadosProduto(dto.nomeProduto(), dto.codigo(), dto.codigoBarras()));
+        return ResponseEntity.status(HttpStatus.OK).body(new BaseDeDadosProdutoDTO(baseDeDadosProduto.getId(), baseDeDadosProduto.getNomeProduto(), baseDeDadosProduto.getCodigo(), baseDeDadosProduto.getCodigoBarras()));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<BaseDeDadosProdutoDTO> alterarBaseDeDadosProduto (@PathVariable Long id, @RequestBody BaseDeDadosProdutoDTO dto){
         BaseDeDadosProduto produtoSalvo = alterarBaseDeDadosProduto.alteraBaseDeDadosProduto(id, new BaseDeDadosProduto(dto.nomeProduto(), dto.codigo(), dto.codigoBarras()));
 
-        return ResponseEntity.ok(new BaseDeDadosProdutoDTO(produtoSalvo.getNomeProduto(), produtoSalvo.getCodigo(), produtoSalvo.getCodigoBarras()));
+        return ResponseEntity.ok(new BaseDeDadosProdutoDTO(produtoSalvo.getId(), produtoSalvo.getNomeProduto(), produtoSalvo.getCodigo(), produtoSalvo.getCodigoBarras()));
     }
 
     @DeleteMapping("/{id}")
@@ -53,7 +53,7 @@ public class BaseDeDadosProdutoController {
     @GetMapping
     public ResponseEntity<List<BaseDeDadosProdutoDTO>> listarTodosBaseDeDadosProduto(){
         return ResponseEntity.ok(listarBaseDeDadosProduto.listarTodosBaseDeDadosProduto().stream()
-                .map(p -> new BaseDeDadosProdutoDTO(p.getNomeProduto(), p.getCodigo(), p.getCodigoBarras())) //para cada usuário encontrado, faça algo (toDomain)
+                .map(p -> new BaseDeDadosProdutoDTO(p.getId(), p.getNomeProduto(), p.getCodigo(), p.getCodigoBarras()))
                 .collect(Collectors.toList()));
     }
 
@@ -61,16 +61,16 @@ public class BaseDeDadosProdutoController {
     public ResponseEntity<List<BaseDeDadosProdutoDTO>> listarBaseDeDadosProdutoPorFiltro(@RequestParam(required = false) String codigo, @RequestParam(required = false) String codigobarras) {
         if (codigo != null && !codigo.isBlank()) {
             return ResponseEntity.ok(listarBaseDeDadosProduto.listarBaseDeDadosProdutoPorCodigo(codigo).stream()
-                    .map(p -> new BaseDeDadosProdutoDTO(p.getNomeProduto(), p.getCodigo(), p.getCodigoBarras())) //para cada usuário encontrado, faça algo (toDomain)
+                    .map(p -> new BaseDeDadosProdutoDTO(p.getId(), p.getNomeProduto(), p.getCodigo(), p.getCodigoBarras()))
                     .collect(Collectors.toList()));
 
         } else if (codigobarras != null && !codigobarras.isBlank()) {
             return ResponseEntity.ok(listarBaseDeDadosProduto.listarBaseDeDadosProdutoPorCodigoBarras(codigobarras).stream()
-                    .map(p -> new BaseDeDadosProdutoDTO(p.getNomeProduto(), p.getCodigo(), p.getCodigoBarras())) //para cada usuário encontrado, faça algo (toDomain)
+                    .map(p -> new BaseDeDadosProdutoDTO(p.getId(), p.getNomeProduto(), p.getCodigo(), p.getCodigoBarras()))
                     .collect(Collectors.toList()));
         }else{
             return ResponseEntity.ok(listarBaseDeDadosProduto.listarTodosBaseDeDadosProduto().stream()
-                    .map(p -> new BaseDeDadosProdutoDTO(p.getNomeProduto(), p.getCodigo(), p.getCodigoBarras())) //para cada usuário encontrado, faça algo (toDomain)
+                    .map(p -> new BaseDeDadosProdutoDTO(p.getId(), p.getNomeProduto(), p.getCodigo(), p.getCodigoBarras()))
                     .collect(Collectors.toList()));
         }
 
