@@ -9,8 +9,14 @@ import {
     TableCell,
     Chip,
     Tooltip,
+    getKeyValue,
+    Spinner,
+
 } from "@heroui/react";
 import dayjs from 'dayjs';
+import { useAsyncList } from "@react-stately/data";
+import { useInfiniteScroll } from "@heroui/use-infinite-scroll";
+
 
 export const DeleteIcon = (props) => {
     return (
@@ -118,10 +124,29 @@ export const columns = [
     { name: "Opções", uid: "opcoes" }
 ];
 
-
-
 const TabelaProdutos = ({ produtos, aoExcluirProduto, aoAtualizarProduto, abrirModalFormulario }) => {
 
+    const [isLoading, setIsLoading] = React.useState(true);
+    const [sortDescriptor, setSortDescriptor] = React.useState({
+        column: "validade",
+        direction: "ascending",
+    });
+    const produtosOrdenados = [...produtos].sort((a, b) => {
+        let first = a[sortDescriptor.column];
+        let second = b[sortDescriptor.column];
+
+        // Para datas, use comparação direta com `new Date(...)`
+        if (sortDescriptor.column === "validade" || sortDescriptor.column === "ultimaModificacao") {
+            first = new Date(first);
+            second = new Date(second);
+        }
+
+        let cmp = (parseInt(first) || first) < (parseInt(second) || second) ? -1 : 1;
+        if (sortDescriptor.direction === "descending") {
+            cmp *= -1;
+        }
+        return cmp;
+    });
     const renderCell = React.useCallback((produto, columnKey) => {
         const cellValue = produto[columnKey];
 
@@ -130,7 +155,6 @@ const TabelaProdutos = ({ produtos, aoExcluirProduto, aoAtualizarProduto, abrirM
                 return (
                     <div className="flex flex-col">
                         <p className="text-bold text-sm capitalize">{cellValue}</p>
-                        {/* <p>{user.nomeDoProduto}</p> */}
                     </div>
                 );
             case "status":
@@ -141,14 +165,11 @@ const TabelaProdutos = ({ produtos, aoExcluirProduto, aoAtualizarProduto, abrirM
                 );
             case "ultimaModificacao":
                 return (
-
-                    // <p>{new Date(cellValue).toLocaleDateString('pt-BR')}</p>
                     <p>{dayjs(cellValue).format('DD/MM/YYYY')}</p>
 
                 )
             case "validade":
                 return (
-                    // <p>{new Date(cellValue).toLocaleDateString('pt-BR')}</p>
                     <p>{dayjs(cellValue).format('DD/MM/YYYY')}</p>
 
                 )
@@ -165,7 +186,7 @@ const TabelaProdutos = ({ produtos, aoExcluirProduto, aoAtualizarProduto, abrirM
                                 })} />
                             </span>
                         </Tooltip>
-                        <Tooltip color="danger" content="Delete user">
+                        <Tooltip color="danger" content="Excluir produto">
                             <span className="text-lg text-danger cursor-pointer active:opacity-50">
                                 <DeleteIcon
                                     onClick={() => {
@@ -180,20 +201,29 @@ const TabelaProdutos = ({ produtos, aoExcluirProduto, aoAtualizarProduto, abrirM
                     </div>
                 );
             default:
+                setIsLoading(false);
                 return cellValue;
         }
     }, []);
 
     return (
-        <Table className='tabela-produtos'>
+        
+        <Table className='tabela-produtos'
+            sortDescriptor={sortDescriptor}
+            onSortChange={setSortDescriptor}
+            >
             <TableHeader columns={columns}>
                 {(column) => (
-                    <TableColumn key={column.uid} align={column.uid === "opcoes" ? "center" : "start"}>
+                    <TableColumn key={column.uid} align={column.uid === "opcoes" ? "center" : "start"}
+                        allowsSorting={["validade", "nomeProduto"].includes(column.uid)}>
                         {column.name}
                     </TableColumn>
                 )}
             </TableHeader>
-            <TableBody items={produtos}>
+            <TableBody
+                items={produtosOrdenados}
+                isLoading={isLoading}
+                loadingContent={<Spinner label="Loading..." />}>
                 {(item) => (
                     <TableRow key={item.id}>
                         {(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>}

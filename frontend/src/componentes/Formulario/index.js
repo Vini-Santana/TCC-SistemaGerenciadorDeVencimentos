@@ -104,7 +104,10 @@ const Formulario = ({ onClose, dadosFormulario, aoAtualizarProduto }) => {
         }
         const hojeCorrigido = new Date();
         hojeCorrigido.setMinutes(hojeCorrigido.getMinutes() - hojeCorrigido.getTimezoneOffset());
-
+        if (parametrosDoProduto.validade < hojeCorrigido.toISOString().split("T")[0]) {
+            alert('A data de validade deve ser maior que a data atual.');
+            return;
+        }
         const produto = {
             ...parametrosDoProduto,
             ultimaModificacao: hojeCorrigido.toISOString().split("T")[0]
