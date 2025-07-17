@@ -11,7 +11,6 @@ const Formulario = ({ onClose, dadosFormulario, aoAtualizarProduto }) => {
                 id: dadosFormulario.produto.id || '',
                 nomeProduto: dadosFormulario.produto.nomeProduto || '',
                 codigo: dadosFormulario.produto.codigo || '',
-                lote: dadosFormulario.produto.lote || '',
                 validade: dadosFormulario.produto.validade || '',
                 quantidade: dadosFormulario.produto.quantidade || '',
                 observacoes: dadosFormulario.produto.observacoes || '',
@@ -21,7 +20,6 @@ const Formulario = ({ onClose, dadosFormulario, aoAtualizarProduto }) => {
                 id: '',
                 nomeProduto: '',
                 codigo: '',
-                lote: '',
                 validade: '',
                 quantidade: '',
                 observacoes: ''
@@ -89,7 +87,6 @@ const Formulario = ({ onClose, dadosFormulario, aoAtualizarProduto }) => {
             id: produtoExistente.id,
             nomeProduto: produtoExistente.nomeProduto,
             codigo: produtoExistente.codigo,
-            lote: produtoExistente.lote,
             validade: produtoExistente.validade,
             quantidade: produtoExistente.quantidade,
             observacoes: produtoExistente.observacoes
@@ -146,7 +143,6 @@ const Formulario = ({ onClose, dadosFormulario, aoAtualizarProduto }) => {
             <hr className='linha' />
             <form onSubmit={aoSalvar}>
 
-
                 {dadosFormulario.modo === 'cadastro' ? (
                     <CampoListProdutos
                         itens={dadosFormulario.listaDeProdutos}
@@ -167,8 +163,6 @@ const Formulario = ({ onClose, dadosFormulario, aoAtualizarProduto }) => {
                     />
                 )}
 
-                <div className="linha-dupla">
-
                     <CampoTexto
                         obrigatorio
                         type="text"
@@ -179,16 +173,7 @@ const Formulario = ({ onClose, dadosFormulario, aoAtualizarProduto }) => {
                         readOnly={emModoEdicao}
                         erro={codigoInvalido}
                     />
-                    <CampoTexto
-                        obrigatorio
-                        type="number"
-                        label="Lote"
-                        placeholder="Digite o lote"
-                        valor={parametrosDoProduto.lote}
-                        readOnly={emModoEdicao}
-                        aoAlterado={valor => atualizarCampo('lote', valor)}
-                    />
-                </div>
+                <div className="linha-dupla">
 
                 <CampoTexto
                     obrigatorio
@@ -207,6 +192,7 @@ const Formulario = ({ onClose, dadosFormulario, aoAtualizarProduto }) => {
                     valor={parametrosDoProduto.quantidade}
                     aoAlterado={valor => atualizarCampo('quantidade', valor)}
                 />
+                </div>
 
                 <CampoTexto
                     label="Observações"

@@ -3,31 +3,28 @@ import './index.css';
 import TabelaProdutos from './componentes/TabelaProdutos/index';
 import {
   listarTodosProdutos,
-  atualizarProduto,
   deletarProduto,
-  listarProdutosPorId
 } from './servicos/produtos';
 import { listarTodosBaseDeDadosProdutos } from './servicos/baseDeDadosProdutos';
 import { Button } from '@heroui/react';
 import ModalFormularioProdutos from './componentes/ModalFormularioProdutos';
+import CardContagemProdutos from './componentes/CardContagemProdutos';
+import { listarConfiguracoes } from './servicos/configuracoes';
 
 function App() {
   const [produtos, setProdutos] = useState([]);
   const [baseDeDadosProdutos, setBaseDeDadosProdutos] = useState([]);
   const [modalFormularioAberto, setModalFormularioAberto] = useState(false);
-  const [dadosFormulario, setDadosFormulario] = useState(null); // <- aqui ficam os dados do formulário
-
-  function aoNovoProdutoAdicionado(produto) {
-    setProdutos(prev => [...produtos, produto]);
-  }
+  const [dadosFormulario, setDadosFormulario] = useState(null);
+  const [configuracoes, setConfiguracoes] = useState(null);
+  const [contagemAVencer, setContagemAVencer] = useState(0);
+    const abrirModalFormulario = (dados) => {
+    setDadosFormulario(dados);
+    setModalFormularioAberto(true);
+  };
 
   async function getTodosProdutos() {
     const listaDeProdutosRecebida = await listarTodosProdutos();
-    setProdutos(listaDeProdutosRecebida);
-  }
-
-  async function getProdutosPorId() {
-    const listaDeProdutosRecebida = await listarProdutosPorId();
     setProdutos(listaDeProdutosRecebida);
   }
 
@@ -36,6 +33,16 @@ function App() {
     setBaseDeDadosProdutos(listaDeProdutosRecebida);
   }
 
+  async function getConfiguracoes() {
+    const configs = await listarConfiguracoes();
+    setConfiguracoes(configs);
+  }
+
+  function aoNovoProdutoAdicionado(produto) {
+    setProdutos(prev => [...produtos, produto]);
+  }
+
+
   async function aoAtualizar(produtoAtualizado) {
     try {
       setProdutos(prev => prev.map(p => p.id === produtoAtualizado.id ? produtoAtualizado : p));
@@ -43,7 +50,6 @@ function App() {
       console.error('Erro ao atualizar produto: ', erro);
     }
   }
-
 
   async function aoExcluir(produto) {
     try {
@@ -58,24 +64,41 @@ function App() {
     async function fetchData() {
       await getTodosProdutos();
       await getBaseDeDadosProdutos();
+      await getConfiguracoes();
     }
     fetchData();
   }, []);
 
-  const abrirModalFormulario = (dados) => {
-    setDadosFormulario(dados);
-    setModalFormularioAberto(true);
-  };
+  useEffect(() => {
+    if (!configuracoes || produtos.length === 0) return;
+
+    const diasParaVencer = configuracoes.tempoParaNotificacaoDeValidade;
+    const hoje = new Date();
+
+    const produtosAVencer = produtos.filter(p => {
+      const validade = new Date(p.validade);
+      const diferencaEmDias = Math.ceil((validade - hoje) / (1000 * 60 * 60 * 24));
+      return diferencaEmDias <= diasParaVencer && diferencaEmDias >= 0;
+    });
+
+    setContagemAVencer(produtosAVencer.length);
+  }, [produtos, configuracoes]);
+
   return (
 
     <div className="App">
+      <CardContagemProdutos
+        titulo="Produtos a vencer"
+        // acao={}
+        contagem={contagemAVencer}
+      />
       <Button onPress={() => abrirModalFormulario({
         label: "Cadastro de produto",
         acao: aoNovoProdutoAdicionado,
         listaDeProdutos: baseDeDadosProdutos,
         modo: "cadastro",
         // })} class="bg-laranja text-white p-4 hover:bg-laranjaHover duration-30">Cadastrar produto</Button>
-      })} className="botao-cadastrar">Cadastrar produto</Button>
+      })} className="botao-cadastrar">Cadastrar Produto</Button>
 
 
       <ModalFormularioProdutos

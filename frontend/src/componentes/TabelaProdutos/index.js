@@ -113,7 +113,6 @@ export const columns = [
     { name: "Nome do produto", uid: "nomeProduto" },
     { name: "Qtd em estoque", uid: "quantidade" },
     { name: "Validade", uid: "validade" },
-    { name: "Lote", uid: "lote" },
     { name: "Observações", uid: "observacoes" },
     { name: "Última modificação", uid: "ultimaModificacao" },
     { name: "Opções", uid: "opcoes" }

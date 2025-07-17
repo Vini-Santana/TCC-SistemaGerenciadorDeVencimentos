@@ -1,0 +1,29 @@
+.produtos-a-vencer {
+  border: 1px solid #502004;
+  border-radius: 6px;
+  padding: 16px 24px;
+  margin: 8px;
+  width: 200px;
+  text-align: center;
+  background-color: #fff;
+  font-family: 'Arial', sans-serif;
+}
+
+.produtos-a-vencer .titulo {
+  font-weight: 500;
+  font-size: 16px;
+  color: #502004;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.produtos-a-vencer .quantidade {
+  font-size: 24px;
+  font-weight: bold;
+  color: #000;
+}
+
+.produtos-a-vencer .quantidade small {
+  font-size: 15px;
+  font-weight: normal;
+}
