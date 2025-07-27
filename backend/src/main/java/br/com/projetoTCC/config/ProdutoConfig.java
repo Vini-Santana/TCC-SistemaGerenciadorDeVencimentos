@@ -1,5 +1,6 @@
 package br.com.projetoTCC.config;
 
+import br.com.projetoTCC.application.gateways.RepositorioDeConfiguracao;
 import br.com.projetoTCC.application.gateways.RepositorioDeProduto;
 import br.com.projetoTCC.application.usecases.Produto.AlterarProduto;
 import br.com.projetoTCC.application.usecases.Produto.CriarProduto;
@@ -30,8 +31,8 @@ public class ProdutoConfig {
     }
 
     @Bean
-    ListarProduto listarProduto(RepositorioDeProduto repositorioDeProduto){
-        return new ListarProduto(repositorioDeProduto);
+    ListarProduto listarProduto(RepositorioDeProduto repositorioDeProduto, RepositorioDeConfiguracao repositorioDeConfiguracao){
+        return new ListarProduto(repositorioDeProduto, repositorioDeConfiguracao);
     }
 
     @Bean

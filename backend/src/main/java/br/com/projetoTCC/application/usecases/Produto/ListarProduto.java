@@ -1,6 +1,8 @@
 package br.com.projetoTCC.application.usecases.Produto;
 
+import br.com.projetoTCC.application.gateways.RepositorioDeConfiguracao;
 import br.com.projetoTCC.application.gateways.RepositorioDeProduto;
+import br.com.projetoTCC.domain.entities.Conficuracao.Configuracao;
 import br.com.projetoTCC.domain.entities.Produto.Produto;
 
 import java.time.LocalDate;
@@ -9,9 +11,11 @@ import java.util.List;
 public class ListarProduto {
 
     final RepositorioDeProduto repositorioDeProduto;
+    final RepositorioDeConfiguracao repositorioDeConfiguracao;
 
-    public ListarProduto(RepositorioDeProduto repositorioDeProduto) {
+    public ListarProduto(RepositorioDeProduto repositorioDeProduto, RepositorioDeConfiguracao repositorioDeConfiguracao) {
         this.repositorioDeProduto = repositorioDeProduto;
+        this.repositorioDeConfiguracao = repositorioDeConfiguracao;
     }
 
     public List<Produto> listarTodosProduto(){
@@ -36,5 +40,16 @@ public class ListarProduto {
 
     public Produto listarProdutoPorId(Long id){
         return repositorioDeProduto.listarProdutoPorId(id);
+    }
+
+    public Boolean isAVencer(Produto p) {
+
+        LocalDate dataAtual = LocalDate.now();
+        LocalDate dataDeValidade = p.getValidade();
+        List<Configuracao> tempoParaNotificacaoDeValidade = repositorioDeConfiguracao.listarConfiguracao();
+        if (dataAtual.isAfter(dataDeValidade.minusDays(tempoParaNotificacaoDeValidade.get(0).getTempoParaNotificacaoDeValidade())) && dataAtual.isBefore(dataDeValidade)) {
+            return true;
+        }
+        return false;
     }
 }

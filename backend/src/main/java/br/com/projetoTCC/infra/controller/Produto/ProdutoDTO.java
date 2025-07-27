@@ -21,5 +21,7 @@ public record ProdutoDTO(
 
         String observacoes,
 
-        LocalDate ultimaModificacao)
+        LocalDate ultimaModificacao,
+
+        Boolean isAVencer)
 {}
