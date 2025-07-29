@@ -10,7 +10,8 @@ import {
     Chip,
     Tooltip,
     Spinner,
-    Button
+    Button,
+    Input
 } from "@heroui/react";
 import dayjs from 'dayjs';
 
@@ -115,7 +116,37 @@ export const columns = [
     { name: "Opções", uid: "opcoes" }
 ];
 
-const TabelaProdutos = ({ produtos, aoExcluirProduto, aoAtualizarProduto, abrirModalFormulario}) => {
+export const SearchIcon = (props) => {
+    return (
+        <svg
+            aria-hidden="true"
+            fill="none"
+            focusable="false"
+            height="1em"
+            role="presentation"
+            viewBox="0 0 24 24"
+            width="1em"
+            {...props}
+        >
+            <path
+                d="M11.5 21C16.7467 21 21 16.7467 21 11.5C21 6.25329 16.7467 2 11.5 2C6.25329 2 2 6.25329 2 11.5C2 16.7467 6.25329 21 11.5 21Z"
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+            />
+            <path
+                d="M22 22L20 20"
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+            />
+        </svg>
+    );
+};
+
+const TabelaProdutos = ({ produtos, aoExcluirProduto, aoAtualizarProduto, abrirModalFormulario }) => {
 
     const [isLoading, setIsLoading] = React.useState(false);
     const [sortDescriptor, setSortDescriptor] = React.useState({
@@ -125,6 +156,11 @@ const TabelaProdutos = ({ produtos, aoExcluirProduto, aoAtualizarProduto, abrirM
 
     const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
     const [productToDelete, setProductToDelete] = useState(null);
+
+    const [filterValue, setFilterValue] = React.useState("");
+    const hasSearchFilter = Boolean(filterValue);
+    const [statusFilter, setStatusFilter] = React.useState("all");
+
 
     const handleDeleteClick = (product) => {
         setProductToDelete(product);
@@ -200,7 +236,7 @@ const TabelaProdutos = ({ produtos, aoExcluirProduto, aoAtualizarProduto, abrirM
                     <div className="relative flex items-center gap-2" >
                         <Tooltip content="Editar produto">
                             <span className="text-lg text-default-400 cursor-pointer active:opacity-50"
-                            aria-label="Editar produto">
+                                aria-label="Editar produto">
                                 <EditIcon onClick={() => abrirModalFormulario({
                                     label: "Editar produto",
                                     acao: (produto) => aoAtualizarProduto(produto),
@@ -210,24 +246,75 @@ const TabelaProdutos = ({ produtos, aoExcluirProduto, aoAtualizarProduto, abrirM
                             </span>
                         </Tooltip>
                         <Tooltip color="danger" content="Excluir produto"
-                        aria-label="Excluir produto">
+                            aria-label="Excluir produto">
                             <span className="text-lg text-danger cursor-pointer active:opacity-50">
                                 <DeleteIcon
                                     onClick={() => handleDeleteClick(produto)}
                                 />
                             </span>
                         </Tooltip>
-                    </div>  
+                    </div>
                 );
             default:
                 return cellValue;
         }
     }, [abrirModalFormulario, aoAtualizarProduto, handleDeleteClick]);
+
+
+    const onClear = React.useCallback(() => {
+        setFilterValue("");
+    }, []);
+
+    const onSearchChange = React.useCallback((value) => {
+        console.log("Search value changed:", value);
+        if (value) {
+            setFilterValue(value);
+        } else {
+            setFilterValue("");
+        }
+    }, []);
+
+    const filteredItems = React.useMemo(() => {
+        let filteredProdutos = [...produtosOrdenados];
+
+        if (hasSearchFilter) {
+            filteredProdutos = filteredProdutos.filter((produto) =>
+                produto.nomeProduto.toLowerCase().includes(filterValue.toLowerCase()),
+            );
+        }
+
+        return filteredProdutos;
+    }, [produtosOrdenados, filterValue]);
+
+    const topContent = React.useMemo(() => {
+        return (
+            <div className="flex flex-col gap-4">
+                <div className="flex justify-between gap-3 items-end">
+                    <Input
+                        isClearable
+                        className="w-full sm:max-w-[30%]"
+                        placeholder="Busque um produto"
+                        startContent={<SearchIcon />}
+                        value={filterValue}
+                        onClear={() => onClear()}
+                        onValueChange={onSearchChange}
+                    />
+                </div>
+            </div>
+        );
+    }, [
+        filterValue,
+        onSearchChange,
+        hasSearchFilter,
+    ]);
+
     return (
         <>
             <Table className='tabela-produtos'
                 sortDescriptor={sortDescriptor}
                 onSortChange={setSortDescriptor}
+                topContent={topContent}
+                topContentPlacement="outside"
             >
                 <TableHeader columns={columns}>
                     {(column) => (
@@ -238,7 +325,7 @@ const TabelaProdutos = ({ produtos, aoExcluirProduto, aoAtualizarProduto, abrirM
                     )}
                 </TableHeader>
                 <TableBody
-                    items={produtosOrdenados}
+                    items={filteredItems}
                     isLoading={isLoading}
                     emptyContent={"Nenhum produto encontrado."}
                     loadingContent={<Spinner label="Loading..." />}>
