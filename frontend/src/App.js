@@ -17,8 +17,8 @@ function App() {
   const [modalFormularioAberto, setModalFormularioAberto] = useState(false);
   const [dadosFormulario, setDadosFormulario] = useState(null);
   const [configuracoes, setConfiguracoes] = useState(null);
-  const [contagemAVencer, setContagemAVencer] = useState(0);
-    const abrirModalFormulario = (dados) => {
+  const [produtosAVencer, setProdutosAVencer] = useState([]);
+  const abrirModalFormulario = (dados) => {
     setDadosFormulario(dados);
     setModalFormularioAberto(true);
   };
@@ -39,7 +39,7 @@ function App() {
   }
 
   function aoNovoProdutoAdicionado(produto) {
-    setProdutos(prev => [...produtos, produto]);
+    setProdutos(prev => [...prev, produto]);
   }
 
 
@@ -70,18 +70,15 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if (!configuracoes || produtos.length === 0) return;
+    // if (!configuracoes || configuracoes.tempoParaNotificacaoDeValidade === undefined || !Array.isArray(produtos) || produtos.length === 0) {
+    if (!configuracoes || !Array.isArray(produtos) || produtos.length === 0) {
+      console.log('Condição de retorno para produtosAVencer: configuracoes ou produtos inválidos.');
+      setProdutosAVencer([]);
+      return;
+    }
+    const produtosAVencer = produtos.filter(p => p.isAVencer);
+    setProdutosAVencer(produtosAVencer);
 
-    const diasParaVencer = configuracoes.tempoParaNotificacaoDeValidade;
-    const hoje = new Date();
-
-    const produtosAVencer = produtos.filter(p => {
-      const validade = new Date(p.validade);
-      const diferencaEmDias = Math.ceil((validade - hoje) / (1000 * 60 * 60 * 24));
-      return diferencaEmDias <= diasParaVencer && diferencaEmDias >= 0;
-    });
-
-    setContagemAVencer(produtosAVencer.length);
   }, [produtos, configuracoes]);
 
   return (
@@ -89,8 +86,7 @@ function App() {
     <div className="App">
       <CardContagemProdutos
         titulo="Produtos a vencer"
-        // acao={}
-        contagem={contagemAVencer}
+        contagem={produtosAVencer.length}
       />
       <Button onPress={() => abrirModalFormulario({
         label: "Cadastro de produto",
@@ -109,13 +105,14 @@ function App() {
         aoAtualizarProduto={aoAtualizar}
       />
 
-      <TabelaProdutos
-        abrirModalFormulario={abrirModalFormulario}
-        produtos={produtos}
-        aoExcluirProduto={aoExcluir}
-        aoAtualizarProduto={aoAtualizar}
-      />
-
+        <TabelaProdutos
+          abrirModalFormulario={abrirModalFormulario}
+          produtos={produtos}
+          aoExcluirProduto={aoExcluir}
+          aoAtualizarProduto={aoAtualizar}
+          // tempoParaNotificacao={configuracoes.tempoParaNotificacaoDeValidade}
+          produtosAVencer={produtosAVencer}
+        />
     </div>
   );
 }
