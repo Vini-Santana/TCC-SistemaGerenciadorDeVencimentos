@@ -8,15 +8,17 @@ import {
 import { listarTodosBaseDeDadosProdutos } from './servicos/baseDeDadosProdutos';
 import { Button } from '@heroui/react';
 import ModalFormularioProdutos from './componentes/ModalFormularioProdutos';
-import CardContagemProdutos from './componentes/CardContagemProdutos';
-import { listarConfiguracoes } from './servicos/configuracoes';
+import CardContagemProdutosAVencer from './componentes/CardContagemProdutosAVencer';
+import { listarEmailsCadastrados } from './servicos/emailsCadastrados';
+import { listarTempoNotificacao } from './servicos/tempoParaNotificacao';
 
 function App() {
   const [produtos, setProdutos] = useState([]);
   const [baseDeDadosProdutos, setBaseDeDadosProdutos] = useState([]);
   const [modalFormularioAberto, setModalFormularioAberto] = useState(false);
   const [dadosFormulario, setDadosFormulario] = useState(null);
-  const [configuracoes, setConfiguracoes] = useState(null);
+  const [emailsCadastrados, setEmailsCadastrados] = useState([]);
+  const [tempoParaNotificacao, setTempoParaNotificacao] = useState([]);
   const [produtosAVencer, setProdutosAVencer] = useState([]);
   const abrirModalFormulario = (dados) => {
     setDadosFormulario(dados);
@@ -33,9 +35,14 @@ function App() {
     setBaseDeDadosProdutos(listaDeProdutosRecebida);
   }
 
-  async function getConfiguracoes() {
-    const configs = await listarConfiguracoes();
-    setConfiguracoes(configs);
+  async function getEmailsCadastrados() {
+    const configs = await listarEmailsCadastrados();
+    setEmailsCadastrados(configs);
+  }
+
+  async function getTempoParaNotificacao() {
+    const configs = await listarTempoNotificacao();
+    setTempoParaNotificacao(configs);
   }
 
   function aoNovoProdutoAdicionado(produto) {
@@ -64,14 +71,14 @@ function App() {
     async function fetchData() {
       await getTodosProdutos();
       await getBaseDeDadosProdutos();
-      await getConfiguracoes();
+      await getEmailsCadastrados();
     }
     fetchData();
   }, []);
 
   useEffect(() => {
     // if (!configuracoes || configuracoes.tempoParaNotificacaoDeValidade === undefined || !Array.isArray(produtos) || produtos.length === 0) {
-    if (!configuracoes || !Array.isArray(produtos) || produtos.length === 0) {
+    if (!Array.isArray(produtos) || produtos.length === 0) {
       console.log('Condição de retorno para produtosAVencer: configuracoes ou produtos inválidos.');
       setProdutosAVencer([]);
       return;
@@ -79,12 +86,12 @@ function App() {
     const produtosAVencer = produtos.filter(p => p.isAVencer);
     setProdutosAVencer(produtosAVencer);
 
-  }, [produtos, configuracoes]);
+  }, [produtos, tempoParaNotificacao]);
 
   return (
 
     <div className="App">
-      <CardContagemProdutos
+      <CardContagemProdutosAVencer
         titulo="Produtos a vencer"
         contagem={produtosAVencer.length}
       />
