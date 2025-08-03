@@ -1,22 +1,5 @@
 sqlite3 tccdatabase.db
 
+insert into tempo_para_notificacao_configuracao values (1, 60, 'TempoAVencer');
 
-
-
-
-INSERT INTO produto (
-    nome_produto,
-    codigo,
-    quantidade,
-    observacoes,
-    validade,
-    ultima_modificacao
-) VALUES (
-    'Trufa Pistache',
-    '14142',
-    14,
-    'MUITO BOM',
-    '2025-08-10',
-    '2025-05-10'
-);
-
+insert into base_de_dados_produto values (1, 141414, 10101010110, 'trufa');
