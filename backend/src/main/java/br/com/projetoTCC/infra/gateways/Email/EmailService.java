@@ -1,24 +1,29 @@
 package br.com.projetoTCC.infra.gateways.Email;
 
-import br.com.projetoTCC.domain.entities.Conficuracao.Configuracao;
+import br.com.projetoTCC.application.gateways.RepositorioDeEmailsConfiguracao;
+import br.com.projetoTCC.domain.entities.Configuracao.Email.EmailsConfiguracao;
 import br.com.projetoTCC.infra.controller.Email.EmailDTO;
-import br.com.projetoTCC.infra.gateways.Configuracao.ConfiguracaoEntityMapper;
-import br.com.projetoTCC.infra.persistence.Configuracao.ConfiguracaoRepository;
+import br.com.projetoTCC.infra.gateways.Configuracao.Email.EmailsConfiguracaoEntityMapper;
+import br.com.projetoTCC.infra.persistence.Configuracao.Email.EmailsConfiguracaoRepository;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class EmailService {
     private final JavaMailSender mailSender;
-    private final ConfiguracaoRepository configuracaoRepository;
-    private final ConfiguracaoEntityMapper mapper;
+    private final EmailsConfiguracaoRepository configuracaoRepository;
+    private final EmailsConfiguracaoEntityMapper mapper;
+    private final RepositorioDeEmailsConfiguracao repositorioDeEmailsConfiguracao;
 
 
-    public EmailService(JavaMailSender mailSender, ConfiguracaoRepository configuracaoRepository, ConfiguracaoEntityMapper mapper) {
+    public EmailService(JavaMailSender mailSender, EmailsConfiguracaoRepository configuracaoRepository, EmailsConfiguracaoEntityMapper mapper, RepositorioDeEmailsConfiguracao repositorioDeEmailsConfiguracao) {
         this.mailSender = mailSender;
         this.configuracaoRepository = configuracaoRepository;
         this.mapper = mapper;
+        this.repositorioDeEmailsConfiguracao = repositorioDeEmailsConfiguracao;
     }
 
     public String EnvialEmail(EmailDTO emailDTO) {
@@ -28,18 +33,21 @@ public class EmailService {
                 return "Nenhuma configuração encontrada.";
             }
 
-            Configuracao configuracao = mapper.toDomain(entity);
-
+            EmailsConfiguracao configuracao = mapper.toDomain(entity);
+            List<EmailsConfiguracao> emailsConfiguracao = repositorioDeEmailsConfiguracao.listarEmailsConfiguracao();
             if (configuracao.getEmailsParaNotificacao().isEmpty()) {
                 return "Nenhum e-mail configurado para notificação.";
             }
 
             var message = new SimpleMailMessage();
-            message.setTo(configuracao.getEmailsParaNotificacao().toArray(new String[0]));
-            message.setSubject(emailDTO.subject());
-            message.setText(emailDTO.body());
+            for (EmailsConfiguracao email : emailsConfiguracao){
+                message.setTo(email.getEmailsParaNotificacao());
+                message.setSubject(emailDTO.subject());
+                message.setText(emailDTO.body());
+                mailSender.send(message);
 
-            mailSender.send(message);
+            }
+
             return "Email enviado com sucesso";
 
         } catch (Exception e) {

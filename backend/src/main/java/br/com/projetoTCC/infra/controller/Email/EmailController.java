@@ -18,7 +18,6 @@ public class EmailController {
 
     @PostMapping
     public String sendEmail(@RequestBody EmailDTO emailDTO){
-        System.out.println(emailDTO);
         return emailService.EnvialEmail(emailDTO);
 
     }
