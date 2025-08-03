@@ -1,0 +1,22 @@
+sqlite3 tccdatabase.db
+
+
+
+
+
+INSERT INTO produto (
+    nome_produto,
+    codigo,
+    quantidade,
+    observacoes,
+    validade,
+    ultima_modificacao
+) VALUES (
+    'Trufa Pistache',
+    '14142',
+    14,
+    'MUITO BOM',
+    '2025-08-10',
+    '2025-05-10'
+);
+
