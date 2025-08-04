@@ -1,3 +1,5 @@
+npx heroui-cli@latest upgrade --all
+
 sqlite3 tccdatabase.db
 
 insert into tempo_para_notificacao_configuracao values (1, 60, 'TempoAVencer');
