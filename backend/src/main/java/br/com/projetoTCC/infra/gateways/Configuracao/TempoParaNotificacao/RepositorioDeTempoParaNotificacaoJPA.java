@@ -8,6 +8,7 @@ import br.com.projetoTCC.infra.persistence.Configuracao.TempoParaNotificacao.Tem
 import br.com.projetoTCC.infra.persistence.Configuracao.TempoParaNotificacao.TempoParaNotificacaoConfiguracaoRepository;
 import br.com.projetoTCC.infra.persistence.Produto.ProdutoEntity;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,6 +34,15 @@ public class RepositorioDeTempoParaNotificacaoJPA implements RepositorioDeTempoP
 
         return repository.findAll().stream()
                 .map(mapper::toDomain)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<TempoParaNotificacaoConfiguracao> listarTempoParaNotificacaoConfiguracaoReverso() {
+        return repository.findAll().stream()
+                .filter(entity -> entity.getId() != 1)
+                .map(mapper::toDomain)
+                .sorted(Comparator.comparingInt(TempoParaNotificacaoConfiguracao::getTempoParaNotificacaoDeValidade).reversed())
                 .collect(Collectors.toList());
     }
 

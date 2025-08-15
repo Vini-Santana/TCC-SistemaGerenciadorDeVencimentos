@@ -51,6 +51,13 @@ public class TempoParaNotificacaoController {
                 .collect(Collectors.toList()));
     }
 
+    @GetMapping("/reverso")
+    public ResponseEntity<List<TempoParaNotificacaoConfiguracaoDTO>> listarTempoConfiguracaoReverso(){
+        return ResponseEntity.ok(listarTempoParaNotificacaoConfiguracao.listarTempoParaNotificacaoDeValidadeConfiguracaoReverso().stream()
+                .map(p -> new TempoParaNotificacaoConfiguracaoDTO(p.getId(), p.getTempoParaNotificacaoDeValidade(), p.getTipoTempo()))
+                .collect(Collectors.toList()));
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<TempoParaNotificacaoConfiguracaoDTO> alterarTempoConfiguracao (@PathVariable Long id, @RequestBody TempoParaNotificacaoConfiguracaoDTO dto){
         TempoParaNotificacaoConfiguracao configuracaoSalva = alterarTempoParaNotificacaoConfiguracao.alterarConfiguracao(id, new TempoParaNotificacaoConfiguracao(dto.tempoParaNotificacaoDeValidade(), dto.tipoTempo()));

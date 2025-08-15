@@ -10,6 +10,7 @@ public interface RepositorioDeTempoParaNotificacao {
 
     TempoParaNotificacaoConfiguracao criarTempoParaNotificacaoConfiguracao (TempoParaNotificacaoConfiguracao tempoParaNotificacaoConfiguracao);
     List<TempoParaNotificacaoConfiguracao> listarTempoParaNotificacaoConfiguracao();
+    List<TempoParaNotificacaoConfiguracao> listarTempoParaNotificacaoConfiguracaoReverso();
     TempoParaNotificacaoConfiguracao alterarTempoParaNotificacaoConfiguracao(Long indice, TempoParaNotificacaoConfiguracao dias);
     TempoParaNotificacaoConfiguracao deletarTempoParaNotificacaoConfiguracao(Long indice, TempoParaNotificacaoConfiguracao dias);
     TempoParaNotificacaoConfiguracao listarTempoPorId(Long id);

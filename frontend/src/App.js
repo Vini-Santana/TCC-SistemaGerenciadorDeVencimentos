@@ -6,6 +6,7 @@ import {
   deletarProduto,
 } from './servicos/produtos';
 import { listarTodosBaseDeDadosProdutos } from './servicos/baseDeDadosProdutos';
+import Alertas from './componentes/Alertas';
 import { Button } from '@heroui/react';
 import ModalFormularioProdutos from './componentes/ModalFormularioProdutos';
 import CardContagemProdutosAVencer from './componentes/CardContagemProdutosAVencer';
@@ -16,6 +17,7 @@ function App() {
   const [produtos, setProdutos] = useState([]);
   const [baseDeDadosProdutos, setBaseDeDadosProdutos] = useState([]);
   const [modalFormularioAberto, setModalFormularioAberto] = useState(false);
+  const [isAlertVisible, setIsAlertVisible] = React.useState(true);
   const [dadosFormulario, setDadosFormulario] = useState(null);
   const [emailsCadastrados, setEmailsCadastrados] = useState([]);
   const [tempoParaNotificacao, setTempoParaNotificacao] = useState([]);
@@ -48,7 +50,6 @@ function App() {
   function aoNovoProdutoAdicionado(produto) {
     setProdutos(prev => [...prev, produto]);
   }
-
 
   async function aoAtualizar(produtoAtualizado) {
     try {
@@ -89,8 +90,16 @@ function App() {
   }, [produtos, tempoParaNotificacao]);
 
   return (
-
     <div className="App">
+       {produtosAVencer.length > 0 && (
+      <Alertas
+        isVisible={isAlertVisible}
+        titulo="Produtos próximos do vencimento"
+        color="warning"
+        produtos={produtosAVencer}
+        onClose={() => setIsAlertVisible(false)} 
+      />
+    )}
       <CardContagemProdutosAVencer
         titulo="Produtos a vencer"
         contagem={produtosAVencer.length}
@@ -112,14 +121,13 @@ function App() {
         aoAtualizarProduto={aoAtualizar}
       />
 
-        <TabelaProdutos
-          abrirModalFormulario={abrirModalFormulario}
-          produtos={produtos}
-          aoExcluirProduto={aoExcluir}
-          aoAtualizarProduto={aoAtualizar}
-          // tempoParaNotificacao={configuracoes.tempoParaNotificacaoDeValidade}
-          produtosAVencer={produtosAVencer}
-        />
+      <TabelaProdutos
+        abrirModalFormulario={abrirModalFormulario}
+        produtos={produtos}
+        aoExcluirProduto={aoExcluir}
+        aoAtualizarProduto={aoAtualizar}
+        produtosAVencer={produtosAVencer}
+      />
     </div>
   );
 }

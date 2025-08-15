@@ -18,6 +18,10 @@ public class ListarTempoParaNotificacaoConfiguracao {
         return repositorioDeConfiguracao.listarTempoParaNotificacaoConfiguracao();
     }
 
+    public List<TempoParaNotificacaoConfiguracao> listarTempoParaNotificacaoDeValidadeConfiguracaoReverso(){
+        return repositorioDeConfiguracao.listarTempoParaNotificacaoConfiguracaoReverso();
+    }
+
     public TempoParaNotificacaoConfiguracao listarTempoPorId(Long id){
         return repositorioDeConfiguracao.listarTempoPorId(id);
     }
