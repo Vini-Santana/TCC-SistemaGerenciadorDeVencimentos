@@ -111,7 +111,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<version>3.4.4</version>
 				<configuration>
-					<mainClass>br.com.projetoTCC.TCCSistemaGerenciadorDeVencimentos</mainClass>
+					<mainClass>backend.src.main.java.br.com.projetoTCC.TCCSistemaGerenciadorDeVencimentos</mainClass>
 				</configuration>
 			</plugin>
 		</plugins>
