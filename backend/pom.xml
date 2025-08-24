@@ -30,17 +30,7 @@
 		<java.version>17</java.version>
 	</properties>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <mainClass>br.com.projetoTCC.TCCSistemaGerenciadorDeVencimentos.TCCSistemaGerenciadorDeVencimentos</mainClass>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+
 
 	<dependencies>
 		<dependency>
@@ -101,7 +91,7 @@
 
 
 	</dependencies>
-
+	
 	<build>
 		<plugins>
 			<plugin>
@@ -112,6 +102,14 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<mainClass>br.com.projetoTCC.TCCSistemaGerenciadorDeVencimentos.TCCSistemaGerenciadorDeVencimentos</mainClass>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
