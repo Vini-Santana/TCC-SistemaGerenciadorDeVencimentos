@@ -33,10 +33,10 @@ function App() {
     setBaseDeDadosProdutos(listaDeProdutosRecebida);
   }
 
-  async function getConfiguracoes() {
-    const configs = await listarConfiguracoes();
-    setConfiguracoes(configs);
-  }
+  //async function getConfiguracoes() {
+  //   const configs = await listarConfiguracoes();
+  //   setConfiguracoes(configs);
+  //}
 
   function aoNovoProdutoAdicionado(produto) {
     setProdutos(prev => [...prev, produto]);
@@ -64,7 +64,7 @@ function App() {
     async function fetchData() {
       await getTodosProdutos();
       await getBaseDeDadosProdutos();
-      await getConfiguracoes();
+      // await getConfiguracoes();
     }
     fetchData();
   }, []);
@@ -82,7 +82,6 @@ function App() {
   }, [produtos, configuracoes]);
 
   return (
-
     <div className="App">
       <CardContagemProdutos
         titulo="Produtos a vencer"
