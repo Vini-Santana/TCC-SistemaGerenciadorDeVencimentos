@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import org.hibernate.validator.constraints.UniqueElements;
 
 @Entity
-@Table(name = "BaseDeDadosProduto")
+@Table(name = "base_de_dados_produto")
 public class BaseDeDadosProdutoEntity {
 
     @Id

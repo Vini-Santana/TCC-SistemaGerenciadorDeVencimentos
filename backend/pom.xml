@@ -29,6 +29,16 @@
 	<properties>
 		<java.version>17</java.version>
 	</properties>
+
+	<profiles>
+		<profile>
+			<id>production</id>
+			<properties>
+				<spring.profiles.active>production</spring.profiles.active>
+			</properties>
+		</profile>
+	</profiles>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -80,6 +90,13 @@
 			<artifactId>hibernate-community-dialects</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>42.7.3</version>
+		</dependency>
+
+
 	</dependencies>
 
 	<build>
@@ -92,6 +109,10 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>3.4.4</version>
+				<configuration>
+					<mainClass>br.com.projetoTCC.TCCSistemaGerenciadorDeVencimentos</mainClass>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

@@ -1,0 +1,49 @@
+npx heroui-cli@latest upgrade --all
+
+1. Para acessar o PostgreSQL via terminal, utilize o comando:
+    psql -U postgres
+
+2. Para criar o banco de dados, utilize o comando:
+    CREATE DATABASE projetotcc;
+
+3. Verifique se o banco de dados foi criado com o comando:
+    \l
+
+4. Acesse o banco de dados criado com o comando:
+    \c projetotcc
+
+5. Crie as tabelas necessárias utilizando os comandos SQL abaixo. Verique com \dt se as tabelas foram criadas corretamente.:
+
+    CREATE TABLE produto (
+        id SERIAL PRIMARY KEY,
+        nome_produto VARCHAR(255),
+        codigo VARCHAR(255),
+        quantidade INTEGER,
+        validade DATE,
+        observacoes varchar(255),
+        ultima_modificacao DATE
+    );
+
+
+    CREATE TABLE base_de_dados_produto (
+        id SERIAL PRIMARY KEY,
+        nome_produto VARCHAR(255) NOT NULL UNIQUE,
+        codigo VARCHAR(255) NOT NULL UNIQUE,
+        codigo_barras VARCHAR(255) NOT NULL UNIQUE
+    );
+
+    CREATE TABLE emails_configuracao (
+        id SERIAL PRIMARY KEY,
+        email VARCHAR(255) UNIQUE
+    );
+
+    CREATE TABLE tempo_para_notificacao_configuracao (
+        id SERIAL PRIMARY KEY,
+        tempo_para_notificacao_de_validade INTEGER NOT NULL UNIQUE,
+        tipo_tempo VARCHAR(50) NOT NULL
+    );
+
+6. Insira os dados iniciais nas tabelas utilizando os comandos SQL abaixo:
+
+    INSERT INTO tempo_para_notificacao_configuracao VALUES (1, 60, 'TempoAVencer');
+    INSERT INTO base_de_dados_produto VALUES (1, 'trufa', '141414', '10101010110'), (2,'tablete', '141415', '10101010115'), (3, 'BB', '141416', '10101010116');
