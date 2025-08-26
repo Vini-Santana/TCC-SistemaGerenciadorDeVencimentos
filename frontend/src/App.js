@@ -9,7 +9,7 @@ import { listarTodosBaseDeDadosProdutos } from './servicos/baseDeDadosProdutos';
 import { Button } from '@heroui/react';
 import ModalFormularioProdutos from './componentes/ModalFormularioProdutos';
 import CardContagemProdutos from './componentes/CardContagemProdutos';
-//import { listarConfiguracoes } from './servicos/configuracoes';
+import { listarConfiguracoes } from './servicos/configuracoes';
 
 function App() {
   const [produtos, setProdutos] = useState([]);
