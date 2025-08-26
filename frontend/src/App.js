@@ -38,8 +38,9 @@ function App() {
   //   setConfiguracoes(configs);
   //}
 
-  function aoNovoProdutoAdicionado(produto) {
+  async function aoNovoProdutoAdicionado(produto) {
     setProdutos(prev => [...prev, produto]);
+    await getTodosProdutos();
   }
 
 
