@@ -72,7 +72,7 @@ function App() {
 
   useEffect(() => {
     // if (!configuracoes || configuracoes.tempoParaNotificacaoDeValidade === undefined || !Array.isArray(produtos) || produtos.length === 0) {
-    if (!configuracoes || !Array.isArray(produtos) || produtos.length === 0) {
+    if (!Array.isArray(produtos) || produtos.length === 0) {
       console.log('Condição de retorno para produtosAVencer: configuracoes ou produtos inválidos.');
       setProdutosAVencer([]);
       return;
