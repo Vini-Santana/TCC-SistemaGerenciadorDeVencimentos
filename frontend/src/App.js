@@ -38,8 +38,10 @@ function App() {
   //   setConfiguracoes(configs);
   //}
 
-  function aoNovoProdutoAdicionado(produto) {
+  async function aoNovoProdutoAdicionado(produto) {
     setProdutos(prev => [...prev, produto]);
+    await getTodosProdutos();
+
   }
 
 
@@ -70,15 +72,13 @@ function App() {
   }, []);
 
   useEffect(() => {
-    // if (!configuracoes || configuracoes.tempoParaNotificacaoDeValidade === undefined || !Array.isArray(produtos) || produtos.length === 0) {
-    if (!configuracoes || !Array.isArray(produtos) || produtos.length === 0) {
+    if (!Array.isArray(produtos) || produtos.length === 0) {
       console.log('Condição de retorno para produtosAVencer: configuracoes ou produtos inválidos.');
       setProdutosAVencer([]);
       return;
     }
     const produtosAVencer = produtos.filter(p => p.isAVencer);
     setProdutosAVencer(produtosAVencer);
-
   }, [produtos, configuracoes]);
 
   return (
@@ -104,14 +104,14 @@ function App() {
         aoAtualizarProduto={aoAtualizar}
       />
 
-        <TabelaProdutos
-          abrirModalFormulario={abrirModalFormulario}
-          produtos={produtos}
-          aoExcluirProduto={aoExcluir}
-          aoAtualizarProduto={aoAtualizar}
-          // tempoParaNotificacao={configuracoes.tempoParaNotificacaoDeValidade}
-          produtosAVencer={produtosAVencer}
-        />
+      <TabelaProdutos
+        abrirModalFormulario={abrirModalFormulario}
+        produtos={produtos}
+        aoExcluirProduto={aoExcluir}
+        aoAtualizarProduto={aoAtualizar}
+        // tempoParaNotificacao={configuracoes.tempoParaNotificacaoDeValidade}
+        produtosAVencer={produtosAVencer}
+      />
     </div>
   );
 }
