@@ -1,0 +1,9 @@
+npx heroui-cli@latest upgrade --all
+
+1. Para acessar o Sqlite via terminal, utilize o comando:
+    sqlite3 tccdatabase.db
+
+2. Insira os dados iniciais nas tabelas utilizando os comandos SQL abaixo:
+
+    INSERT INTO tempo_para_notificacao_configuracao VALUES (1, 60, 'TempoAVencer');
+    INSERT INTO base_de_dados_produto VALUES (1, '141414', '10101010110', 'trufa'), (2, '141415', '10101010115', 'tablete'), (3, '141416', '10101010116', 'BB');

@@ -1,5 +1,5 @@
-import './CardContagemProdutosAVencer.css'
-const CardContagemProdutosAVencer = ({ titulo, contagem, acao}) => {
+import './CardContagemProdutos.css'
+const CardContagemProdutos = ({ titulo, contagem, acao}) => {
 
     return (
 
@@ -10,4 +10,4 @@ const CardContagemProdutosAVencer = ({ titulo, contagem, acao}) => {
     )
 }
 
-export default CardContagemProdutosAVencer;
+export default CardContagemProdutos;
