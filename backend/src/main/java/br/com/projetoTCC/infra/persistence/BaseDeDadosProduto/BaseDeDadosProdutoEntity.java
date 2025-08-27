@@ -10,11 +10,11 @@ public class BaseDeDadosProdutoEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String nomeProduto;
     @Column(nullable = false, unique = true)
     private String codigo;
-    @Column(nullable = false, unique = true)
+    @Column(unique = true)
     private String codigoBarras;
 
     public BaseDeDadosProdutoEntity() {}

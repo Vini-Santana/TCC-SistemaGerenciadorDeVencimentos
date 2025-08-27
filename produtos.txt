@@ -1,0 +1,9 @@
+
+insert into produto values(1, '1003526', 'TAB 30 WHEY AO LEITE', '', 8, '1756263600000', '1757894400000');
+insert into produto values(2,'1003524', 'TAB 30 BC IMUNIDADE 70%', '', 25, '1756263600000', '1757980800000');
+insert into produto values(3,'1003529', 'TAB 30 BC FOCO', '', 22, '1756263600000', '1759190400000');
+insert into produto values(4,'1001589', 'TAB 100 85% BENDITO CACAO BTB', '', 5, '1756263600000', '1759363200000');
+insert into produto values(5,'1003448', 'BISC HARRY POTTER 100', '', 5, '1756263600000', '1759363200000');
+insert into produto values(6,'', 'TAB 18 CROCANTE CS', '', 12, '1756263600000', '1759363200000');
+insert into produto values(7,'1003527', 'TAB 30 BC SAUDE PELE', '', 25, '1756263600000', '1760140800000');
+insert into produto values(8,'2000014', 'WAFER BYTES 50 AVELA', 'loja', 30, '1756263600000', '1762041600000');
