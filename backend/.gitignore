@@ -36,3 +36,6 @@ build/
 # Arquivos gerados pelo build do frontend no backend/static
 backend/src/main/resources/static/*
 !backend/src/main/resources/static/.gitkeep
+
+# Arquivos de configuração locais
+backend/src/main/resources/application-local.properties

@@ -1,4 +1,4 @@
-*.env
+
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
@@ -25,7 +25,7 @@ backend/src/main/resources/application.properties
 
 #Arquivo de banco do Sqlite
 tccdatabase.db
-
+.db
 ### Eclipse ###
 .metadata
 bin/

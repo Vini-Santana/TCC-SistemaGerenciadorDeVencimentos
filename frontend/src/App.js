@@ -6,21 +6,17 @@ import {
   deletarProduto,
 } from './servicos/produtos';
 import { listarTodosBaseDeDadosProdutos } from './servicos/baseDeDadosProdutos';
-import Alertas from './componentes/Alertas';
 import { Button } from '@heroui/react';
 import ModalFormularioProdutos from './componentes/ModalFormularioProdutos';
-import CardContagemProdutosAVencer from './componentes/CardContagemProdutosAVencer';
-import { listarEmailsCadastrados } from './servicos/emailsCadastrados';
-import { listarTempoNotificacao } from './servicos/tempoParaNotificacao';
+import CardContagemProdutos from './componentes/CardContagemProdutos';
+import { listarConfiguracoes } from './servicos/configuracoes';
 
 function App() {
   const [produtos, setProdutos] = useState([]);
   const [baseDeDadosProdutos, setBaseDeDadosProdutos] = useState([]);
   const [modalFormularioAberto, setModalFormularioAberto] = useState(false);
-  const [isAlertVisible, setIsAlertVisible] = React.useState(true);
   const [dadosFormulario, setDadosFormulario] = useState(null);
-  const [emailsCadastrados, setEmailsCadastrados] = useState([]);
-  const [tempoParaNotificacao, setTempoParaNotificacao] = useState([]);
+  const [configuracoes, setConfiguracoes] = useState(null);
   const [produtosAVencer, setProdutosAVencer] = useState([]);
   const abrirModalFormulario = (dados) => {
     setDadosFormulario(dados);
@@ -37,19 +33,16 @@ function App() {
     setBaseDeDadosProdutos(listaDeProdutosRecebida);
   }
 
-  async function getEmailsCadastrados() {
-    const configs = await listarEmailsCadastrados();
-    setEmailsCadastrados(configs);
-  }
+  //async function getConfiguracoes() {
+  //   const configs = await listarConfiguracoes();
+  //   setConfiguracoes(configs);
+  //}
 
-  async function getTempoParaNotificacao() {
-    const configs = await listarTempoNotificacao();
-    setTempoParaNotificacao(configs);
-  }
-
-  function aoNovoProdutoAdicionado(produto) {
+  async function aoNovoProdutoAdicionado(produto) {
     setProdutos(prev => [...prev, produto]);
+    await getTodosProdutos();
   }
+
 
   async function aoAtualizar(produtoAtualizado) {
     try {
@@ -72,7 +65,7 @@ function App() {
     async function fetchData() {
       await getTodosProdutos();
       await getBaseDeDadosProdutos();
-      await getEmailsCadastrados();
+      // await getConfiguracoes();
     }
     fetchData();
   }, []);
@@ -87,20 +80,11 @@ function App() {
     const produtosAVencer = produtos.filter(p => p.isAVencer);
     setProdutosAVencer(produtosAVencer);
 
-  }, [produtos, tempoParaNotificacao]);
+  }, [produtos, configuracoes]);
 
   return (
     <div className="App">
-       {produtosAVencer.length > 0 && (
-      <Alertas
-        isVisible={isAlertVisible}
-        titulo="Produtos próximos do vencimento"
-        color="warning"
-        produtos={produtosAVencer}
-        onClose={() => setIsAlertVisible(false)} 
-      />
-    )}
-      <CardContagemProdutosAVencer
+      <CardContagemProdutos
         titulo="Produtos a vencer"
         contagem={produtosAVencer.length}
       />
@@ -121,13 +105,14 @@ function App() {
         aoAtualizarProduto={aoAtualizar}
       />
 
-      <TabelaProdutos
-        abrirModalFormulario={abrirModalFormulario}
-        produtos={produtos}
-        aoExcluirProduto={aoExcluir}
-        aoAtualizarProduto={aoAtualizar}
-        produtosAVencer={produtosAVencer}
-      />
+        <TabelaProdutos
+          abrirModalFormulario={abrirModalFormulario}
+          produtos={produtos}
+          aoExcluirProduto={aoExcluir}
+          aoAtualizarProduto={aoAtualizar}
+          // tempoParaNotificacao={configuracoes.tempoParaNotificacaoDeValidade}
+          produtosAVencer={produtosAVencer}
+        />
     </div>
   );
 }
