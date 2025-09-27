@@ -23,5 +23,5 @@ public record ProdutoDTO(
 
         LocalDate ultimaModificacao,
 
-        String lote)
+        Boolean isAVencer)
 {}

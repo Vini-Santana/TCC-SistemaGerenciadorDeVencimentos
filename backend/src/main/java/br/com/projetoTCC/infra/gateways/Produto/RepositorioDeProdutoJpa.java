@@ -27,18 +27,10 @@ public class RepositorioDeProdutoJpa implements RepositorioDeProduto {
         return mapper.toDomain(entity);
     }
 
-
-//    public List<Produto> validaProdutoExistente(Produto produto) {
-//
-//        repository.findByNomeProdutoStartingWithIgnoreCase(nomeProduto).stream()
-//                .map(mapper::toDomain) //para cada usuário encontrado, faça algo (toDomain)
-//                .collect(Collectors.toList());
-//    }
-
     @Override
     public Produto alterarProduto(Long id, Produto produto) {
 
-        ProdutoEntity entity = new ProdutoEntity(id, produto.getNomeProduto(), produto.getCodigo(), produto.getQuantidade(), produto.getValidade(), produto.getObservacoes(), produto.getLote(), produto.getUltimaModificacao());
+        ProdutoEntity entity = new ProdutoEntity(id, produto.getNomeProduto(), produto.getCodigo(), produto.getQuantidade(), produto.getValidade(), produto.getObservacoes(), produto.getUltimaModificacao());
         repository.save(entity);
         return mapper.toDomain(entity);
     }
@@ -46,14 +38,14 @@ public class RepositorioDeProdutoJpa implements RepositorioDeProduto {
     @Override
     public List<Produto> listarTodosProduto() {
         return repository.findAll().stream()
-                .map(mapper::toDomain) //para cada usuário encontrado, faça algo (toDomain)
+                .map(mapper::toDomain)
                 .collect(Collectors.toList());
     }
 
     @Override
     public List<Produto> listarProdutoPorNome(String nomeProduto) {
         return repository.findByNomeProdutoStartingWithIgnoreCase(nomeProduto).stream()
-                .map(mapper::toDomain) //para cada usuário encontrado, faça algo (toDomain)
+                .map(mapper::toDomain)
                 .collect(Collectors.toList());
     }
 

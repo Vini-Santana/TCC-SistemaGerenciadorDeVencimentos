@@ -4,6 +4,7 @@
 
 body {
   margin: 0;
+  padding: 8px 20px;
   font-family: 'Inter'; 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -32,5 +33,5 @@ code {
   padding: 10px 20px;
   border: none;
   cursor: pointer;
-  margin: 16px 13px;
+  margin: 16px 0px;
 }

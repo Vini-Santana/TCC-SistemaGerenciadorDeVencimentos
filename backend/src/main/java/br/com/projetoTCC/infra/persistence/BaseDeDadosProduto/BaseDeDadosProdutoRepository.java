@@ -8,8 +8,8 @@ public interface BaseDeDadosProdutoRepository extends JpaRepository<BaseDeDadosP
 
 //    List<BaseDeDadosProdutoEntity> findBynomeProdutoStartingWithIgnoreCase(String nomeProduto);
 //    List<BaseDeDadosProdutoEntity> findByCodigoStartingWithIgnoreCase(String codigo);
-    List<BaseDeDadosProdutoEntity> findBynomeProduto(String nomeProduto);
-    List<BaseDeDadosProdutoEntity> findByCodigo(String codigo);
-    List<BaseDeDadosProdutoEntity> findByCodigoBarras(String codigo);
+        List<BaseDeDadosProdutoEntity> findBynomeProduto(String nomeProduto);
+        List<BaseDeDadosProdutoEntity> findByCodigo(String codigo);
+        List<BaseDeDadosProdutoEntity> findByCodigoBarras(String codigo);
 
 }

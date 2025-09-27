@@ -7,17 +7,18 @@ import {
 import Formulario from "../Formulario"
 import './ModalFormularioProdutos.css';
 
-const ModalFormularioProdutos = ({ dadosFormulario, onClose, placement, isOpen, }) => {
+const ModalFormularioProdutos = ({ dadosFormulario, onClose, placement, isOpen, aoAtualizarProduto}) => {
 
     return (
 
         <div className="modal">
-            <Modal isOpen={isOpen} placement={placement} onClose={onClose} size="3xl">
+            <Modal isOpen={isOpen} placement={placement} onClose={onClose} size="3xl" hideCloseButton={true}>
                 <ModalContent>
                     <ModalBody class="p-0">
                         <Formulario
                             dadosFormulario={dadosFormulario}
                             onClose={onClose}
+                            aoAtualizarProduto={aoAtualizarProduto}
                         />
                     </ModalBody>
                 </ModalContent>
