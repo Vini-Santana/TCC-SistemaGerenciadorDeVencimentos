@@ -14,7 +14,7 @@ const ModalFormularioProdutos = ({ dadosFormulario, onClose, placement, isOpen, 
         <div className="modal">
             <Modal isOpen={isOpen} placement={placement} onClose={onClose} size="3xl" hideCloseButton={true}>
                 <ModalContent>
-                    <ModalBody class="p-0">
+                    <ModalBody className="p-0">
                         <Formulario
                             dadosFormulario={dadosFormulario}
                             onClose={onClose}

@@ -9,14 +9,12 @@ import { listarTodosBaseDeDadosProdutos } from './servicos/baseDeDadosProdutos';
 import { Button } from '@heroui/react';
 import ModalFormularioProdutos from './componentes/ModalFormularioProdutos';
 import CardContagemProdutos from './componentes/CardContagemProdutos';
-import { listarConfiguracoes } from './servicos/configuracoes';
 
 function App() {
   const [produtos, setProdutos] = useState([]);
   const [baseDeDadosProdutos, setBaseDeDadosProdutos] = useState([]);
   const [modalFormularioAberto, setModalFormularioAberto] = useState(false);
   const [dadosFormulario, setDadosFormulario] = useState(null);
-  const [configuracoes, setConfiguracoes] = useState(null);
   const [produtosAVencer, setProdutosAVencer] = useState([]);
   const abrirModalFormulario = (dados) => {
     setDadosFormulario(dados);
@@ -33,16 +31,10 @@ function App() {
     setBaseDeDadosProdutos(listaDeProdutosRecebida);
   }
 
-  //async function getConfiguracoes() {
-  //   const configs = await listarConfiguracoes();
-  //   setConfiguracoes(configs);
-  //}
-
   async function aoNovoProdutoAdicionado(produto) {
     setProdutos(prev => [...prev, produto]);
     await getTodosProdutos();
   }
-
 
   async function aoAtualizar(produtoAtualizado) {
     try {
@@ -65,22 +57,21 @@ function App() {
     async function fetchData() {
       await getTodosProdutos();
       await getBaseDeDadosProdutos();
-      // await getConfiguracoes();
     }
     fetchData();
   }, []);
 
   useEffect(() => {
-    // if (!configuracoes || configuracoes.tempoParaNotificacaoDeValidade === undefined || !Array.isArray(produtos) || produtos.length === 0) {
-    if (!Array.isArray(produtos) || produtos.length === 0) {
-      console.log('Condição de retorno para produtosAVencer: configuracoes ou produtos inválidos.');
+
+    if (produtos.length === 0) {
+      console.log("Nenhum produto encontrado.");
       setProdutosAVencer([]);
       return;
     }
+
     const produtosAVencer = produtos.filter(p => p.isAVencer);
     setProdutosAVencer(produtosAVencer);
-
-  }, [produtos, configuracoes]);
+  }, [produtos]);
 
   return (
     <div className="App">
@@ -93,7 +84,6 @@ function App() {
         acao: aoNovoProdutoAdicionado,
         listaDeProdutos: baseDeDadosProdutos,
         modo: "cadastro",
-        // })} class="bg-laranja text-white p-4 hover:bg-laranjaHover duration-30">Cadastrar produto</Button>
       })} className="botao-cadastrar">Cadastrar Produto</Button>
 
 
@@ -105,14 +95,13 @@ function App() {
         aoAtualizarProduto={aoAtualizar}
       />
 
-        <TabelaProdutos
-          abrirModalFormulario={abrirModalFormulario}
-          produtos={produtos}
-          aoExcluirProduto={aoExcluir}
-          aoAtualizarProduto={aoAtualizar}
-          // tempoParaNotificacao={configuracoes.tempoParaNotificacaoDeValidade}
-          produtosAVencer={produtosAVencer}
-        />
+      <TabelaProdutos
+        abrirModalFormulario={abrirModalFormulario}
+        produtos={produtos}
+        aoExcluirProduto={aoExcluir}
+        aoAtualizarProduto={aoAtualizar}
+        produtosAVencer={produtosAVencer}
+      />
     </div>
   );
 }

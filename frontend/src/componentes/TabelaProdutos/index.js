@@ -1,5 +1,5 @@
 import './TabelaProdutos.css';
-import React, { useState } from 'react';
+import React, { useState, useCallback } from "react";
 import {
     Table,
     TableHeader,
@@ -148,7 +148,6 @@ export const SearchIcon = (props) => {
 
 const TabelaProdutos = ({ produtos, aoExcluirProduto, aoAtualizarProduto, abrirModalFormulario }) => {
 
-    const [isLoading, setIsLoading] = React.useState(false);
     const [sortDescriptor, setSortDescriptor] = React.useState({
         column: "validade",
         direction: "ascending",
@@ -156,16 +155,13 @@ const TabelaProdutos = ({ produtos, aoExcluirProduto, aoAtualizarProduto, abrirM
 
     const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
     const [productToDelete, setProductToDelete] = useState(null);
-
     const [filterValue, setFilterValue] = React.useState("");
     const hasSearchFilter = Boolean(filterValue);
-    const [statusFilter, setStatusFilter] = React.useState("all");
 
-
-    const handleDeleteClick = (product) => {
+    const handleDeleteClick = useCallback((product) => {
         setProductToDelete(product);
         setShowDeleteConfirm(true);
-    };
+    }, []);
 
     const confirmDelete = () => {
         if (productToDelete) {
@@ -174,7 +170,6 @@ const TabelaProdutos = ({ produtos, aoExcluirProduto, aoAtualizarProduto, abrirM
         setShowDeleteConfirm(false);
         setProductToDelete(null);
     };
-
     const cancelDelete = () => {
         setShowDeleteConfirm(false);
         setProductToDelete(null);
@@ -284,7 +279,7 @@ const TabelaProdutos = ({ produtos, aoExcluirProduto, aoAtualizarProduto, abrirM
         }
 
         return filteredProdutos;
-    }, [produtosOrdenados, filterValue]);
+    }, [produtosOrdenados, filterValue, hasSearchFilter]);
 
     const topContent = React.useMemo(() => {
         return (
@@ -303,14 +298,14 @@ const TabelaProdutos = ({ produtos, aoExcluirProduto, aoAtualizarProduto, abrirM
             </div>
         );
     }, [
-        filterValue,
-        onSearchChange,
-        hasSearchFilter,
+        filterValue, onSearchChange, onClear
     ]);
 
     return (
         <>
-            <Table className='tabela-produtos'
+            <Table
+                aria-label="Tabela de produtos cadastrados"
+                className="tabela-produtos"
                 sortDescriptor={sortDescriptor}
                 onSortChange={setSortDescriptor}
                 topContent={topContent}
@@ -326,7 +321,6 @@ const TabelaProdutos = ({ produtos, aoExcluirProduto, aoAtualizarProduto, abrirM
                 </TableHeader>
                 <TableBody
                     items={filteredItems}
-                    isLoading={isLoading}
                     emptyContent={"Nenhum produto encontrado."}
                     loadingContent={<Spinner label="Loading..." />}>
                     {(item) => (
