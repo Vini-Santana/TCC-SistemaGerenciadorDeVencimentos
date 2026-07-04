@@ -11,10 +11,6 @@ body {
 
 }
 
-code {
-  font-family: 'Courier New', Courier, monospace;
-}
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -25,7 +21,7 @@ code {
 }
 
 .botao-cadastrar {
-  background-color: #FE7416;
+  background-color: #F06D16;
   color: #FFF;
   border-radius: 4px;
   font-weight: 500;
